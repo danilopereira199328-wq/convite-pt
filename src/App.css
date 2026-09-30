@@ -1,0 +1,239 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   LAYOUT PRINCIPAL
+   ============================================ */
+
+.invite-editor {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-header {
+  background: white;
+  padding: 20px 40px;
+  border-bottom: 1px solid #e5e5e7;
+}
+
+.editor-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.editor-header p {
+  font-size: 14px;
+  color: #6e6e73;
+}
+
+.editor-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  overflow: hidden;
+}
+
+.editor-sidebar {
+  background: white;
+  padding: 24px;
+  overflow-y: auto;
+  border-right: 1px solid #e5e5e7;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: calc(100vh - 80px);
+}
+
+.editor-preview {
+  background: #f5f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 40px;
+}
+
+/* ============================================
+   FORMULÁRIO
+   ============================================ */
+
+.invite-form h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #1d1d1f;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1d1d1f;
+}
+
+.form-field input,
+.form-field textarea {
+  padding: 10px 12px;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: #0071e3;
+}
+
+.form-field input[type='color'] {
+  height: 40px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ============================================
+   PREVIEW
+   ============================================ */
+
+.invite-preview-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-scaler {
+  width: 1080px;
+  height: 1920px;
+  transform: scale(0.35);
+  transform-origin: center center;
+}
+
+.preview-canvas {
+  width: 1080px;
+  height: 1920px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ============================================
+   BOTÕES DE DOWNLOAD
+   ============================================ */
+
+.download-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.download-buttons button {
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-free {
+  background: #f5f5f7;
+  color: #1d1d1f;
+}
+
+.btn-free:hover {
+  background: #e8e8ed;
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, #e91e63 0%, #ff9800 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3);
+}
+
+.btn-premium:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+}
+
+/* ============================================
+   SELETOR DE OCASIÃO
+   ============================================ */
+
+.occasion-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.occasion-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border: 2px solid #e5e5e7;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.occasion-btn:hover {
+  border-color: #e91e63;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+}
+
+.occasion-btn.active {
+  border-color: #e91e63;
+  background: #fff0f5;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+}
+
+.occasion-emoji {
+  font-size: 24px;
+}
+
+.occasion-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1d1d1f;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.occasion-btn.active .occasion-label {
+  color: #e91e63;
+}
