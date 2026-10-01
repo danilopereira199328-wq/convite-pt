@@ -7,56 +7,54 @@ interface Props {
 export function Birthday01({ data }: Props) {
   const hasPhoto = !!data.photo;
 
+  // Posições dinâmicas: mudam conforme há foto ou não
   const nameTop = hasPhoto ? 750 : 400;
-  const ageTop = hasPhoto ? 950 : 600;
-  const messageTop = hasPhoto ? 1250 : 950;
-  const dateTop = hasPhoto ? 1450 : 1200;
-  const separatorTop = hasPhoto ? 1580 : 1400;
-  const venueTop = hasPhoto ? 1650 : 1480;
+  const ageTop = hasPhoto ? 1000 : 620;
+  const messageTop = hasPhoto ? 1350 : 980;
+  const dateTop = hasPhoto ? 1520 : 1220;
+  const separatorTop = hasPhoto ? 1650 : 1420;
+  const venueTop = hasPhoto ? 1720 : 1500;
 
-  // 🎯 Calcula o estilo da forma da foto
   const getPhotoStyle = (): React.CSSProperties => {
-  const baseStyle: React.CSSProperties = {
-    position: 'absolute',
-    top: '280px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    overflow: 'hidden',
-  };
+    const baseStyle: React.CSSProperties = {
+      position: 'absolute',
+      top: '280px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      overflow: 'hidden',
+    };
 
-  if (data.photoShape === 'square') {
+    if (data.photoShape === 'square') {
+      return {
+        ...baseStyle,
+        width: '400px',
+        height: '400px',
+        borderRadius: '20px',
+        border: '8px solid rgba(255, 255, 255, 0.4)',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+      };
+    }
+
+    if (data.photoShape === 'heart') {
+      return {
+        ...baseStyle,
+        width: '560px',
+        height: '500px',
+        clipPath:
+          'path("M 280 420 C 280 420 40 280 40 160 C 40 90 90 40 160 40 C 210 40 250 70 280 110 C 310 70 350 40 400 40 C 470 40 520 90 520 160 C 520 280 280 420 280 420 Z")',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+      };
+    }
+
     return {
       ...baseStyle,
       width: '400px',
       height: '400px',
-      borderRadius: '20px',
+      borderRadius: '50%',
       border: '8px solid rgba(255, 255, 255, 0.4)',
       boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
     };
-  }
-
-  if (data.photoShape === 'heart') {
-    // Container maior para o coração ocupar o mesmo espaço visual
-    return {
-      ...baseStyle,
-      width: '560px',
-      height: '500px',
-      clipPath:
-        'path("M 280 420 C 280 420 40 280 40 160 C 40 90 90 40 160 40 C 210 40 250 70 280 110 C 310 70 350 40 400 40 C 470 40 520 90 520 160 C 520 280 280 420 280 420 Z")',
-      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-    };
-  }
-
-  // circle (padrão)
-  return {
-    ...baseStyle,
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    border: '8px solid rgba(255, 255, 255, 0.4)',
-    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
   };
-};
 
   return (
     <div
@@ -95,11 +93,7 @@ export function Birthday01({ data }: Props) {
           <img
             src={data.photo}
             alt="Foto"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
       ) : null}
@@ -124,12 +118,12 @@ export function Birthday01({ data }: Props) {
         </h1>
       </div>
 
-      {/* Idade (só sem foto) */}
-      {data.age && !hasPhoto ? (
+      {/* IDADE (sempre visível) */}
+      {data.age ? (
         <div style={{ position: 'absolute', top: `${ageTop}px`, left: 0, right: 0 }}>
           <div
             style={{
-              fontSize: '180px',
+              fontSize: hasPhoto ? '120px' : '180px',
               fontWeight: 900,
               lineHeight: 1,
               letterSpacing: '-6px',
@@ -139,7 +133,7 @@ export function Birthday01({ data }: Props) {
           </div>
           <div
             style={{
-              fontSize: '26px',
+              fontSize: hasPhoto ? '22px' : '26px',
               letterSpacing: '10px',
               textTransform: 'uppercase',
               opacity: 0.9,

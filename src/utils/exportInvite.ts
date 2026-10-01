@@ -211,13 +211,17 @@ export async function exportInviteAsPNG({
   ctx.font = `bold ${nameFontSize}px "Playfair Display", Georgia, serif`;
   ctx.fillText(name, WIDTH / 2, nameY);
 
-  // === 6. IDADE (só aniversário sem foto) ===
-  if (data.occasion === 'birthday' && data.age && !hasPhoto) {
-    ctx.font = 'bold 180px "Playfair Display", Georgia, serif';
-    ctx.fillText(String(data.age), WIDTH / 2, 750);
+    // === 6. IDADE (sempre visível no aniversário) ===
+  if (data.occasion === 'birthday' && data.age) {
+    const ageFontSize = hasPhoto ? 120 : 180;
+    const ageY = hasPhoto ? 1120 : 750;
+    const anosY = hasPhoto ? 1180 : 810;
 
-    ctx.font = '26px Inter, sans-serif';
-    ctx.fillText('A N O S', WIDTH / 2, 810);
+    ctx.font = `bold ${ageFontSize}px "Playfair Display", Georgia, serif`;
+    ctx.fillText(String(data.age), WIDTH / 2, ageY);
+
+    ctx.font = hasPhoto ? '22px Inter, sans-serif' : '26px Inter, sans-serif';
+    ctx.fillText('A N O S', WIDTH / 2, anosY);
   }
 
   // === 7. MENSAGEM ===
@@ -230,7 +234,7 @@ export async function exportInviteAsPNG({
   };
 
   const msg = data.message || defaultMsg[data.occasion] || 'A tua presença é essencial!';
-  const msgY = hasPhoto ? 1150 : 1050;
+  const msgY = hasPhoto ? 1350 : 1050;
   ctx.font = 'italic 30px "Playfair Display", Georgia, serif';
   ctx.fillText(msg, WIDTH / 2, msgY);
 
@@ -243,8 +247,8 @@ export async function exportInviteAsPNG({
       })
     : 'Data';
 
-  const dateY = hasPhoto ? 1400 : 1300;
-  const timeY = hasPhoto ? 1450 : 1350;
+  const dateY = hasPhoto ? 1520 : 1300;
+  const timeY = hasPhoto ? 1570 : 1350;
 
   if (style.accentColor) ctx.fillStyle = style.accentColor;
   ctx.font = 'bold 38px Inter, sans-serif';
@@ -255,7 +259,7 @@ export async function exportInviteAsPNG({
   ctx.fillText(`ÀS ${data.time || '00:00'}`, WIDTH / 2, timeY);
 
   // === 9. SEPARADOR ===
-  const separatorY = hasPhoto ? 1520 : 1420;
+  const separatorY = hasPhoto ? 1650 : 1420;
 
   ctx.strokeStyle = style.accentColor || style.textColor;
   ctx.globalAlpha = 0.3;
@@ -266,9 +270,9 @@ export async function exportInviteAsPNG({
   ctx.globalAlpha = 1;
 
   // === 10. LOCAL ===
-  const venueY = hasPhoto ? 1620 : 1520;
-  const addressY = hasPhoto ? 1670 : 1570;
-  const cityY = hasPhoto ? 1710 : 1610;
+  const venueY = hasPhoto ? 1720 : 1520;
+  const addressY = hasPhoto ? 1770 : 1570;
+  const cityY = hasPhoto ? 1810 : 1610;
 
   ctx.fillStyle = style.textColor;
   ctx.font = 'bold 30px Inter, sans-serif';
@@ -287,7 +291,7 @@ export async function exportInviteAsPNG({
   if (style.footer) {
     ctx.fillStyle = style.accentColor || style.textColor;
     ctx.font = '18px Inter, sans-serif';
-    ctx.fillText(style.footer.toUpperCase(), WIDTH / 2, hasPhoto ? 1810 : 1750);
+    ctx.fillText(style.footer.toUpperCase(), WIDTH / 2, hasPhoto ? 1860 : 1750);
   }
 
   // === 12. MARCA D'ÁGUA ===
