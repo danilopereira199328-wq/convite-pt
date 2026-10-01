@@ -4,10 +4,24 @@ interface Props {
   data: InviteData;
 }
 
+function getFontFamily(fontFamily?: string): string {
+  switch (fontFamily) {
+    case 'cormorant':
+      return '"Cormorant Garamond", Georgia, serif';
+    case 'montserrat':
+      return 'Montserrat, -apple-system, sans-serif';
+    case 'lora':
+      return 'Lora, Georgia, serif';
+    case 'playfair':
+    default:
+      return '"Playfair Display", Georgia, serif';
+  }
+}
+
 export function Birthday01({ data }: Props) {
   const hasPhoto = !!data.photo;
+  const fontFamily = getFontFamily(data.fontFamily);
 
-  // Posições dinâmicas: mudam conforme há foto ou não
   const nameTop = hasPhoto ? 750 : 400;
   const ageTop = hasPhoto ? 1000 : 620;
   const messageTop = hasPhoto ? 1350 : 980;
@@ -63,7 +77,7 @@ export function Birthday01({ data }: Props) {
         height: '1920px',
         background: `linear-gradient(135deg, ${data.primaryColor} 0%, ${data.secondaryColor} 100%)`,
         position: 'relative',
-        fontFamily: '"Playfair Display", Georgia, serif',
+        fontFamily: fontFamily,
         color: '#ffffff',
         textAlign: 'center',
         overflow: 'hidden',
@@ -118,7 +132,7 @@ export function Birthday01({ data }: Props) {
         </h1>
       </div>
 
-      {/* IDADE (sempre visível) */}
+      {/* IDADE */}
       {data.age ? (
         <div style={{ position: 'absolute', top: `${ageTop}px`, left: 0, right: 0 }}>
           <div

@@ -4,8 +4,23 @@ interface Props {
   data: InviteData;
 }
 
+function getFontFamily(fontFamily?: string): string {
+  switch (fontFamily) {
+    case 'cormorant':
+      return '"Cormorant Garamond", Georgia, serif';
+    case 'montserrat':
+      return 'Montserrat, -apple-system, sans-serif';
+    case 'lora':
+      return 'Lora, Georgia, serif';
+    case 'playfair':
+    default:
+      return '"Playfair Display", Georgia, serif';
+  }
+}
+
 export function Birthday03({ data }: Props) {
   const hasPhoto = !!data.photo;
+  const fontFamily = getFontFamily(data.fontFamily);
 
   const nameTop = hasPhoto ? 750 : 400;
   const ageTop = hasPhoto ? 1000 : 620;
@@ -62,13 +77,12 @@ export function Birthday03({ data }: Props) {
         height: '1920px',
         background: 'linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%)',
         position: 'relative',
-        fontFamily: '"Playfair Display", Georgia, serif',
+        fontFamily: fontFamily,
         color: '#d4af37',
         textAlign: 'center',
         overflow: 'hidden',
       }}
     >
-      {/* Moldura dourada */}
       <div
         style={{
           position: 'absolute',
@@ -92,7 +106,6 @@ export function Birthday03({ data }: Props) {
         }}
       />
 
-      {/* Ornamento superior */}
       <div
         style={{
           position: 'absolute',
@@ -106,7 +119,6 @@ export function Birthday03({ data }: Props) {
         ✦
       </div>
 
-      {/* Cabeçalho */}
       <div style={{ position: 'absolute', top: '230px', left: 0, right: 0 }}>
         <span
           style={{
@@ -122,7 +134,6 @@ export function Birthday03({ data }: Props) {
         </span>
       </div>
 
-      {/* FOTO */}
       {hasPhoto ? (
         <div style={getPhotoStyle()}>
           <img
@@ -133,7 +144,6 @@ export function Birthday03({ data }: Props) {
         </div>
       ) : null}
 
-      {/* Nome */}
       <div style={{ position: 'absolute', top: `${nameTop}px`, left: '100px', right: '100px' }}>
         <h1
           style={{
@@ -155,7 +165,6 @@ export function Birthday03({ data }: Props) {
         </h1>
       </div>
 
-      {/* Idade */}
       {data.age ? (
         <div style={{ position: 'absolute', top: `${ageTop}px`, left: 0, right: 0 }}>
           <div
@@ -185,7 +194,6 @@ export function Birthday03({ data }: Props) {
         </div>
       ) : null}
 
-      {/* Mensagem */}
       <div style={{ position: 'absolute', top: `${messageTop}px`, left: '150px', right: '150px' }}>
         <p
           style={{
@@ -201,7 +209,6 @@ export function Birthday03({ data }: Props) {
         </p>
       </div>
 
-      {/* Data */}
       <div
         style={{
           position: 'absolute',
@@ -233,7 +240,6 @@ export function Birthday03({ data }: Props) {
         </div>
       </div>
 
-      {/* Separador */}
       <div
         style={{
           position: 'absolute',
@@ -246,7 +252,6 @@ export function Birthday03({ data }: Props) {
         }}
       />
 
-      {/* Local */}
       <div
         style={{
           position: 'absolute',
@@ -280,7 +285,6 @@ export function Birthday03({ data }: Props) {
         )}
       </div>
 
-      {/* Ornamento inferior */}
       <div
         style={{
           position: 'absolute',

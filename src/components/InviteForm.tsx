@@ -1,6 +1,6 @@
 import { useInviteStore } from '../store/inviteStore';
 import { getTemplatesByOccasion } from '../templates';
-import type { OccasionType } from '../types/invite';
+import type { OccasionType, FontFamily } from '../types/invite';
 
 const occasions: { value: OccasionType; label: string; emoji: string }[] = [
   { value: 'birthday', label: 'Aniversário', emoji: '🎂' },
@@ -8,6 +8,13 @@ const occasions: { value: OccasionType; label: string; emoji: string }[] = [
   { value: 'baptism', label: 'Batizado', emoji: '💧' },
   { value: 'communion', label: 'Comunhão', emoji: '🕊️' },
   { value: 'baby-shower', label: 'Baby Shower', emoji: '👶' },
+];
+
+const fonts: { value: FontFamily; label: string; css: string }[] = [
+  { value: 'playfair', label: 'Elegante', css: '"Playfair Display", Georgia, serif' },
+  { value: 'cormorant', label: 'Clássica', css: '"Cormorant Garamond", Georgia, serif' },
+  { value: 'montserrat', label: 'Moderna', css: 'Montserrat, sans-serif' },
+  { value: 'lora', label: 'Romântica', css: 'Lora, Georgia, serif' },
 ];
 
 export function InviteForm() {
@@ -33,7 +40,7 @@ export function InviteForm() {
         ))}
       </div>
 
-      {/* 🎯 SELETOR DE ESTILO */}
+      {/* SELETOR DE ESTILO */}
       {templatesForOccasion.length > 1 && (
         <>
           <h2>Estilo</h2>
@@ -51,6 +58,23 @@ export function InviteForm() {
           </div>
         </>
       )}
+
+      {/* SELETOR DE FONTE */}
+      <h2>Fonte</h2>
+      <div className="font-grid">
+        {fonts.map((font) => (
+          <button
+            key={font.value}
+            type="button"
+            className={`font-btn ${data.fontFamily === font.value ? 'active' : ''}`}
+            onClick={() => updateField('fontFamily', font.value)}
+            style={{ fontFamily: font.css }}
+          >
+            <span className="font-preview">Aa</span>
+            <span className="font-label">{font.label}</span>
+          </button>
+        ))}
+      </div>
 
       {/* FOTO */}
       <h2>Foto (opcional)</h2>

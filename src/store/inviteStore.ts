@@ -27,6 +27,7 @@ const initialData: InviteData = {
   secondaryColor: '#ffd700',
   photo: undefined,
   photoShape: 'circle',
+  fontFamily: 'playfair',
 };
 
 export const useInviteStore = create<InviteStore>((set) => ({

@@ -430,3 +430,62 @@ body {
 .style-btn.active .style-name {
   color: #e91e63;
 }
+
+/* ============================================
+   SELETOR DE FONTE
+   ============================================ */
+
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.font-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 4px;
+  border: 2px solid #e5e5e7;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #1d1d1f;
+  min-height: 70px;
+}
+
+.font-btn:hover {
+  border-color: #e91e63;
+  transform: translateY(-2px);
+}
+
+.font-btn.active {
+  border-color: #e91e63;
+  background: #fff0f5;
+  color: #e91e63;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+}
+
+.font-preview {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.font-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #666;
+  margin-top: 4px;
+}
+
+.font-btn.active .font-label {
+  color: #e91e63;
+}

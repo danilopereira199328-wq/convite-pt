@@ -7,6 +7,8 @@ export type OccasionType =
 
 export type PhotoShape = 'circle' | 'square' | 'heart';
 
+export type FontFamily = 'playfair' | 'cormorant' | 'montserrat' | 'lora';
+
 export interface InviteData {
   occasion: OccasionType;
   templateId: string;
@@ -30,7 +32,8 @@ export interface InviteData {
   primaryColor: string;
   secondaryColor: string;
 
-  // Foto
   photo?: string;
   photoShape?: PhotoShape;
+
+  fontFamily?: FontFamily;
 }
