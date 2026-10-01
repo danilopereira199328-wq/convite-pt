@@ -27,4 +27,8 @@ export interface InviteData {
 
   primaryColor: string;
   secondaryColor: string;
+
+  // 🎯 NOVO: Foto
+  photo?: string;
+  photoPosition?: 'top' | 'middle' | 'bottom';
 }

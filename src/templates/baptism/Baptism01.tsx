@@ -5,6 +5,14 @@ interface Props {
 }
 
 export function Baptism01({ data }: Props) {
+  const hasPhoto = !!data.photo;
+
+  const nameTop = hasPhoto ? 830 : 420;
+  const messageTop = hasPhoto ? 1050 : 750;
+  const dateTop = hasPhoto ? 1300 : 1050;
+  const separatorTop = hasPhoto ? 1450 : 1300;
+  const venueTop = hasPhoto ? 1540 : 1370;
+
   return (
     <div
       style={{
@@ -47,11 +55,40 @@ export function Baptism01({ data }: Props) {
         </div>
       </div>
 
-      {/* Nome */}
-      <div style={{ position: 'absolute', top: '400px', left: '80px', right: '80px' }}>
+      {/* 🎯 FOTO */}
+      {hasPhoto ? (
         <div
           style={{
-            fontSize: (data.honoreeName || '').length > 16 ? '60px' : (data.honoreeName || '').length > 10 ? '80px' : '96px',
+            position: 'absolute',
+            top: '400px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '400px',
+            height: '400px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: '8px solid #4a90d9',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+          }}
+        >
+          <img
+            src={data.photo}
+            alt="Foto"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+      ) : null}
+
+      {/* Nome */}
+      <div style={{ position: 'absolute', top: `${nameTop}px`, left: '80px', right: '80px' }}>
+        <div
+          style={{
+            fontSize:
+              (data.honoreeName || '').length > 16
+                ? '56px'
+                : (data.honoreeName || '').length > 10
+                ? '76px'
+                : '90px',
             fontWeight: 700,
             lineHeight: 1.2,
             color: '#1a5490',
@@ -63,7 +100,7 @@ export function Baptism01({ data }: Props) {
       </div>
 
       {/* Mensagem */}
-      <div style={{ position: 'absolute', top: '750px', left: '150px', right: '150px' }}>
+      <div style={{ position: 'absolute', top: `${messageTop}px`, left: '150px', right: '150px' }}>
         <p
           style={{
             fontSize: '28px',
@@ -73,13 +110,12 @@ export function Baptism01({ data }: Props) {
             margin: 0,
           }}
         >
-          {data.message ||
-            'Com muita alegria convidamos para celebrar este momento tão especial'}
+          {data.message || 'Com muita alegria convidamos para celebrar este momento tão especial'}
         </p>
       </div>
 
       {/* Data */}
-      <div style={{ position: 'absolute', top: '1050px', left: 0, right: 0 }}>
+      <div style={{ position: 'absolute', top: `${dateTop}px`, left: 0, right: 0 }}>
         <div
           style={{
             fontSize: '40px',
@@ -114,7 +150,7 @@ export function Baptism01({ data }: Props) {
       <div
         style={{
           position: 'absolute',
-          top: '1300px',
+          top: `${separatorTop}px`,
           left: '350px',
           right: '350px',
           height: '1px',
@@ -124,7 +160,7 @@ export function Baptism01({ data }: Props) {
       />
 
       {/* Local */}
-      <div style={{ position: 'absolute', top: '1370px', left: '100px', right: '100px' }}>
+      <div style={{ position: 'absolute', top: `${venueTop}px`, left: '100px', right: '100px' }}>
         <div
           style={{
             fontSize: '30px',

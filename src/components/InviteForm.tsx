@@ -30,6 +30,43 @@ export function InviteForm() {
         ))}
       </div>
 
+      {/* 🎯 FOTO */}
+      <h2>Foto (opcional)</h2>
+
+      <div className="photo-upload">
+        {data.photo ? (
+          <div className="photo-preview">
+            <img src={data.photo} alt="Foto do convite" />
+            <button
+              type="button"
+              className="photo-remove"
+              onClick={() => updateField('photo', undefined)}
+            >
+              ✕ Remover Foto
+            </button>
+          </div>
+        ) : (
+          <label className="photo-input-label">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                  updateField('photo', event.target?.result as string);
+                };
+                reader.readAsDataURL(file);
+              }}
+              style={{ display: 'none' }}
+            />
+            <span className="photo-input-btn">📷 Adicionar Foto</span>
+            <small>Formatos: JPG, PNG (máx. 5MB)</small>
+          </label>
+        )}
+      </div>
+
       <h2>Dados do Convite</h2>
 
       <div className="form-field">

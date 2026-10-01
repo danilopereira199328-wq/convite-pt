@@ -5,6 +5,15 @@ interface Props {
 }
 
 export function Birthday01({ data }: Props) {
+  const hasPhoto = !!data.photo;
+
+  const nameTop = hasPhoto ? 750 : 400;
+  const ageTop = hasPhoto ? 950 : 600;
+  const messageTop = hasPhoto ? 1250 : 950;
+  const dateTop = hasPhoto ? 1450 : 1200;
+  const separatorTop = hasPhoto ? 1580 : 1400;
+  const venueTop = hasPhoto ? 1650 : 1480;
+
   return (
     <div
       style={{
@@ -36,11 +45,44 @@ export function Birthday01({ data }: Props) {
         </span>
       </div>
 
+      {/* 🎯 FOTO */}
+      {hasPhoto ? (
+        <div
+          style={{
+            position: 'absolute',
+            top: '300px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '400px',
+            height: '400px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: '8px solid rgba(255, 255, 255, 0.4)',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+          }}
+        >
+          <img
+            src={data.photo}
+            alt="Foto"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+      ) : null}
+
       {/* Nome */}
-      <div style={{ position: 'absolute', top: '330px', left: '60px', right: '60px' }}>
+      <div style={{ position: 'absolute', top: `${nameTop}px`, left: '60px', right: '60px' }}>
         <h1
           style={{
-            fontSize: (data.honoreeName || '').length > 16 ? '56px' : (data.honoreeName || '').length > 10 ? '80px' : '100px',
+            fontSize:
+              (data.honoreeName || '').length > 16
+                ? '56px'
+                : (data.honoreeName || '').length > 10
+                ? '80px'
+                : '100px',
             fontWeight: 700,
             margin: 0,
             lineHeight: 1.15,
@@ -51,10 +93,17 @@ export function Birthday01({ data }: Props) {
         </h1>
       </div>
 
-      {/* Idade */}
-      {data.age ? (
-        <div style={{ position: 'absolute', top: '600px', left: 0, right: 0 }}>
-          <div style={{ fontSize: '180px', fontWeight: 900, lineHeight: 1, letterSpacing: '-6px' }}>
+      {/* Idade (só sem foto) */}
+      {data.age && !hasPhoto ? (
+        <div style={{ position: 'absolute', top: `${ageTop}px`, left: 0, right: 0 }}>
+          <div
+            style={{
+              fontSize: '180px',
+              fontWeight: 900,
+              lineHeight: 1,
+              letterSpacing: '-6px',
+            }}
+          >
             {data.age}
           </div>
           <div
@@ -73,7 +122,7 @@ export function Birthday01({ data }: Props) {
       ) : null}
 
       {/* Mensagem */}
-      <div style={{ position: 'absolute', top: '950px', left: '100px', right: '100px' }}>
+      <div style={{ position: 'absolute', top: `${messageTop}px`, left: '100px', right: '100px' }}>
         <p style={{ fontSize: '30px', fontStyle: 'italic', margin: 0, lineHeight: 1.5 }}>
           {data.message || 'A tua presença é essencial!'}
         </p>
@@ -83,7 +132,7 @@ export function Birthday01({ data }: Props) {
       <div
         style={{
           position: 'absolute',
-          top: '1200px',
+          top: `${dateTop}px`,
           left: 0,
           right: 0,
           fontFamily: 'Inter, sans-serif',
@@ -107,7 +156,7 @@ export function Birthday01({ data }: Props) {
       <div
         style={{
           position: 'absolute',
-          top: '1400px',
+          top: `${separatorTop}px`,
           left: '200px',
           right: '200px',
           height: '2px',
@@ -119,7 +168,7 @@ export function Birthday01({ data }: Props) {
       <div
         style={{
           position: 'absolute',
-          top: '1480px',
+          top: `${venueTop}px`,
           left: '100px',
           right: '100px',
           fontFamily: 'Inter, sans-serif',
