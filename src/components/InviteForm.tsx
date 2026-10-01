@@ -1,4 +1,5 @@
 import { useInviteStore } from '../store/inviteStore';
+import { getTemplatesByOccasion } from '../templates';
 import type { OccasionType } from '../types/invite';
 
 const occasions: { value: OccasionType; label: string; emoji: string }[] = [
@@ -10,7 +11,9 @@ const occasions: { value: OccasionType; label: string; emoji: string }[] = [
 ];
 
 export function InviteForm() {
-  const { data, updateField, setOccasion } = useInviteStore();
+  const { data, updateField, setOccasion, setTemplate } = useInviteStore();
+
+  const templatesForOccasion = getTemplatesByOccasion(data.occasion);
 
   return (
     <div className="invite-form">
@@ -30,7 +33,26 @@ export function InviteForm() {
         ))}
       </div>
 
-      {/* 🎯 FOTO */}
+      {/* 🎯 SELETOR DE ESTILO */}
+      {templatesForOccasion.length > 1 && (
+        <>
+          <h2>Estilo</h2>
+          <div className="style-grid">
+            {templatesForOccasion.map((tpl) => (
+              <button
+                key={tpl.id}
+                type="button"
+                className={`style-btn ${data.templateId === tpl.id ? 'active' : ''}`}
+                onClick={() => setTemplate(tpl.id)}
+              >
+                <span className="style-name">{tpl.name}</span>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* FOTO */}
       <h2>Foto (opcional)</h2>
 
       <div className="photo-upload">
@@ -67,7 +89,7 @@ export function InviteForm() {
         )}
       </div>
 
-      {/* 🎯 SELETOR DE FORMA (só aparece se houver foto) */}
+      {/* SELETOR DE FORMA */}
       {data.photo && (
         <>
           <h2>Forma da Foto</h2>
@@ -195,7 +217,7 @@ export function InviteForm() {
         />
       </div>
 
-      {data.occasion === 'birthday' && (
+      {data.occasion === 'birthday' && data.templateId === 'birthday-01' && (
         <div className="form-row">
           <div className="form-field">
             <label>Cor Principal</label>

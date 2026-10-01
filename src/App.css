@@ -383,3 +383,50 @@ body {
 .photo-shape-btn.active .shape-label {
   color: #e91e63;
 }
+
+/* ============================================
+   SELETOR DE ESTILO (Templates)
+   ============================================ */
+
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.style-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border: 2px solid #e5e5e7;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.style-btn:hover {
+  border-color: #e91e63;
+  transform: translateY(-2px);
+}
+
+.style-btn.active {
+  border-color: #e91e63;
+  background: #fff0f5;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+}
+
+.style-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.style-btn.active .style-name {
+  color: #e91e63;
+}
