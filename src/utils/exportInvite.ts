@@ -84,7 +84,7 @@ export async function exportInviteAsPNG({
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
   }
 
-  // === 1.5. FOTO (todos os templates) ===
+  // === 1.5. FOTO (com formas) ===
   if (hasPhoto) {
     try {
       const img = new Image();
@@ -97,22 +97,73 @@ export async function exportInviteAsPNG({
       const photoSize = 400;
       const photoX = (WIDTH - photoSize) / 2;
       const photoY = data.occasion === 'wedding' ? 400 : 300;
+      const shape = data.photoShape || 'circle';
+      const borderColor = style.accentColor || 'rgba(255, 255, 255, 0.5)';
 
       ctx.save();
-      ctx.beginPath();
-      ctx.arc(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 0, Math.PI * 2);
-      ctx.closePath();
-      ctx.clip();
+
+      // Clip conforme a forma
+      if (shape === 'circle') {
+        ctx.beginPath();
+        ctx.arc(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+      } else if (shape === 'square') {
+        const radius = 20;
+        ctx.beginPath();
+        ctx.moveTo(photoX + radius, photoY);
+        ctx.lineTo(photoX + photoSize - radius, photoY);
+        ctx.quadraticCurveTo(photoX + photoSize, photoY, photoX + photoSize, photoY + radius);
+        ctx.lineTo(photoX + photoSize, photoY + photoSize - radius);
+        ctx.quadraticCurveTo(photoX + photoSize, photoY + photoSize, photoX + photoSize - radius, photoY + photoSize);
+        ctx.lineTo(photoX + radius, photoY + photoSize);
+        ctx.quadraticCurveTo(photoX, photoY + photoSize, photoX, photoY + photoSize - radius);
+        ctx.lineTo(photoX, photoY + radius);
+        ctx.quadraticCurveTo(photoX, photoY, photoX + radius, photoY);
+        ctx.closePath();
+        ctx.clip();
+      } else if (shape === 'heart') {
+        const cx = photoX + photoSize / 2;
+        const cy = photoY + photoSize / 2 + 30;
+        const size = photoSize / 2 - 20;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy + size * 0.3);
+        ctx.bezierCurveTo(cx, cy - size * 0.3, cx - size, cy - size * 0.3, cx - size, cy + size * 0.3);
+        ctx.bezierCurveTo(cx - size, cy + size, cx, cy + size * 1.3, cx, cy + size * 1.5);
+        ctx.bezierCurveTo(cx, cy + size * 1.3, cx + size, cy + size, cx + size, cy + size * 0.3);
+        ctx.bezierCurveTo(cx + size, cy - size * 0.3, cx, cy - size * 0.3, cx, cy + size * 0.3);
+        ctx.closePath();
+        ctx.clip();
+      }
+
       ctx.drawImage(img, photoX, photoY, photoSize, photoSize);
       ctx.restore();
 
-      // Borda com cor de acento
-      const borderColor = style.accentColor || 'rgba(255, 255, 255, 0.5)';
-      ctx.strokeStyle = borderColor;
-      ctx.lineWidth = 8;
-      ctx.beginPath();
-      ctx.arc(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 0, Math.PI * 2);
-      ctx.stroke();
+      // Borda (exceto coração)
+      if (shape !== 'heart') {
+        ctx.strokeStyle = borderColor;
+        ctx.lineWidth = 8;
+
+        if (shape === 'circle') {
+          ctx.beginPath();
+          ctx.arc(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 0, Math.PI * 2);
+          ctx.stroke();
+        } else if (shape === 'square') {
+          const radius = 20;
+          ctx.beginPath();
+          ctx.moveTo(photoX + radius, photoY);
+          ctx.lineTo(photoX + photoSize - radius, photoY);
+          ctx.quadraticCurveTo(photoX + photoSize, photoY, photoX + photoSize, photoY + radius);
+          ctx.lineTo(photoX + photoSize, photoY + photoSize - radius);
+          ctx.quadraticCurveTo(photoX + photoSize, photoY + photoSize, photoX + photoSize - radius, photoY + photoSize);
+          ctx.lineTo(photoX + radius, photoY + photoSize);
+          ctx.quadraticCurveTo(photoX, photoY + photoSize, photoX, photoY + photoSize - radius);
+          ctx.lineTo(photoX, photoY + radius);
+          ctx.quadraticCurveTo(photoX, photoY, photoX + radius, photoY);
+          ctx.closePath();
+          ctx.stroke();
+        }
+      }
     } catch (error) {
       console.error('Erro ao carregar foto:', error);
     }
@@ -155,7 +206,6 @@ export async function exportInviteAsPNG({
   else if (nameLen > 12) nameFontSize = 68;
   else if (nameLen > 8) nameFontSize = 80;
 
-  // Posição do nome varia por ocasião e foto
   const nameY = hasPhoto ? 850 : 450;
 
   ctx.font = `bold ${nameFontSize}px "Playfair Display", Georgia, serif`;

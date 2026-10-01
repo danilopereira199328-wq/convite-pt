@@ -14,6 +14,50 @@ export function Birthday01({ data }: Props) {
   const separatorTop = hasPhoto ? 1580 : 1400;
   const venueTop = hasPhoto ? 1650 : 1480;
 
+  // 🎯 Calcula o estilo da forma da foto
+  const getPhotoStyle = (): React.CSSProperties => {
+  const baseStyle: React.CSSProperties = {
+    position: 'absolute',
+    top: '280px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    overflow: 'hidden',
+  };
+
+  if (data.photoShape === 'square') {
+    return {
+      ...baseStyle,
+      width: '400px',
+      height: '400px',
+      borderRadius: '20px',
+      border: '8px solid rgba(255, 255, 255, 0.4)',
+      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+    };
+  }
+
+  if (data.photoShape === 'heart') {
+    // Container maior para o coração ocupar o mesmo espaço visual
+    return {
+      ...baseStyle,
+      width: '560px',
+      height: '500px',
+      clipPath:
+        'path("M 280 420 C 280 420 40 280 40 160 C 40 90 90 40 160 40 C 210 40 250 70 280 110 C 310 70 350 40 400 40 C 470 40 520 90 520 160 C 520 280 280 420 280 420 Z")',
+      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+    };
+  }
+
+  // circle (padrão)
+  return {
+    ...baseStyle,
+    width: '400px',
+    height: '400px',
+    borderRadius: '50%',
+    border: '8px solid rgba(255, 255, 255, 0.4)',
+    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+  };
+};
+
   return (
     <div
       style={{
@@ -45,22 +89,9 @@ export function Birthday01({ data }: Props) {
         </span>
       </div>
 
-      {/* 🎯 FOTO */}
+      {/* FOTO */}
       {hasPhoto ? (
-        <div
-          style={{
-            position: 'absolute',
-            top: '300px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '400px',
-            height: '400px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '8px solid rgba(255, 255, 255, 0.4)',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-          }}
-        >
+        <div style={getPhotoStyle()}>
           <img
             src={data.photo}
             alt="Foto"

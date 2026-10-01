@@ -26,7 +26,7 @@ const initialData: InviteData = {
   primaryColor: '#e91e63',
   secondaryColor: '#ffd700',
   photo: undefined,
-  photoPosition: 'top',
+  photoShape: 'circle',
 };
 
 export const useInviteStore = create<InviteStore>((set) => ({

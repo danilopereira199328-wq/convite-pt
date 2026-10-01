@@ -310,3 +310,76 @@ body {
 .photo-remove:hover {
   background: #e53935;
 }
+
+/* ============================================
+   SELETOR DE FORMA DA FOTO
+   ============================================ */
+
+.photo-shape-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.photo-shape-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 8px;
+  border: 2px solid #e5e5e7;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.photo-shape-btn:hover {
+  border-color: #e91e63;
+  transform: translateY(-2px);
+}
+
+.photo-shape-btn.active {
+  border-color: #e91e63;
+  background: #fff0f5;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+}
+
+.shape-preview {
+  width: 32px;
+  height: 32px;
+  background: #e91e63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.shape-preview.circle {
+  border-radius: 50%;
+}
+
+.shape-preview.square {
+  border-radius: 4px;
+}
+
+.shape-preview.heart {
+  background: transparent;
+  color: #e91e63;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.shape-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.photo-shape-btn.active .shape-label {
+  color: #e91e63;
+}

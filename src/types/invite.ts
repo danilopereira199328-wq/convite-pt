@@ -5,6 +5,8 @@ export type OccasionType =
   | 'communion'
   | 'baby-shower';
 
+export type PhotoShape = 'circle' | 'square' | 'heart';
+
 export interface InviteData {
   occasion: OccasionType;
   templateId: string;
@@ -28,7 +30,7 @@ export interface InviteData {
   primaryColor: string;
   secondaryColor: string;
 
-  // 🎯 NOVO: Foto
+  // Foto
   photo?: string;
-  photoPosition?: 'top' | 'middle' | 'bottom';
+  photoShape?: PhotoShape;
 }

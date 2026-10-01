@@ -6,11 +6,53 @@ interface Props {
 
 export function Wedding01({ data }: Props) {
   const hasPhoto = !!data.photo;
-const nameTop = hasPhoto ? 830 : 420;
-  const messageTop = hasPhoto ? 1050 : 820;
-  const dateTop = hasPhoto ? 1300 : 1080;
-  const separatorTop = hasPhoto ? 1450 : 1300;
+
+  const nameTop = hasPhoto ? 800 : 450;
+  const messageTop = hasPhoto ? 1100 : 820;
+  const dateTop = hasPhoto ? 1320 : 1080;
+  const separatorTop = hasPhoto ? 1460 : 1300;
   const venueTop = hasPhoto ? 1540 : 1360;
+
+  const getPhotoStyle = (): React.CSSProperties => {
+    const baseStyle: React.CSSProperties = {
+      position: 'absolute',
+      top: '380px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      overflow: 'hidden',
+    };
+
+    if (data.photoShape === 'square') {
+      return {
+        ...baseStyle,
+        width: '400px',
+        height: '400px',
+        borderRadius: '20px',
+        border: '8px solid #c9a96e',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+      };
+    }
+
+    if (data.photoShape === 'heart') {
+      return {
+        ...baseStyle,
+        width: '560px',
+        height: '500px',
+        clipPath:
+          'path("M 280 420 C 280 420 40 280 40 160 C 40 90 90 40 160 40 C 210 40 250 70 280 110 C 310 70 350 40 400 40 C 470 40 520 90 520 160 C 520 280 280 420 280 420 Z")',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+      };
+    }
+
+    return {
+      ...baseStyle,
+      width: '400px',
+      height: '400px',
+      borderRadius: '50%',
+      border: '8px solid #c9a96e',
+      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+    };
+  };
 
   return (
     <div
@@ -65,22 +107,9 @@ const nameTop = hasPhoto ? 830 : 420;
         <div style={{ fontSize: '50px', color: '#c9a96e', marginTop: '20px' }}>♥</div>
       </div>
 
-      {/* 🎯 FOTO */}
+      {/* FOTO */}
       {hasPhoto ? (
-        <div
-          style={{
-            position: 'absolute',
-            top: '400px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '400px',
-            height: '400px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '8px solid #c9a96e',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-          }}
-        >
+        <div style={getPhotoStyle()}>
           <img
             src={data.photo}
             alt="Foto"

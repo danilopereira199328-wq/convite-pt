@@ -67,6 +67,39 @@ export function InviteForm() {
         )}
       </div>
 
+      {/* 🎯 SELETOR DE FORMA (só aparece se houver foto) */}
+      {data.photo && (
+        <>
+          <h2>Forma da Foto</h2>
+          <div className="photo-shape-grid">
+            <button
+              type="button"
+              className={`photo-shape-btn ${data.photoShape === 'circle' ? 'active' : ''}`}
+              onClick={() => updateField('photoShape', 'circle')}
+            >
+              <span className="shape-preview circle" />
+              <span className="shape-label">Círculo</span>
+            </button>
+            <button
+              type="button"
+              className={`photo-shape-btn ${data.photoShape === 'square' ? 'active' : ''}`}
+              onClick={() => updateField('photoShape', 'square')}
+            >
+              <span className="shape-preview square" />
+              <span className="shape-label">Quadrado</span>
+            </button>
+            <button
+              type="button"
+              className={`photo-shape-btn ${data.photoShape === 'heart' ? 'active' : ''}`}
+              onClick={() => updateField('photoShape', 'heart')}
+            >
+              <span className="shape-preview heart">♥</span>
+              <span className="shape-label">Coração</span>
+            </button>
+          </div>
+        </>
+      )}
+
       <h2>Dados do Convite</h2>
 
       <div className="form-field">
