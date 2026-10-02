@@ -29,7 +29,8 @@ export function Birthday02({ data }: Props) {
   const Element4Component = getElementComponent(data.occasion, 'element4', data.element4Id);
 
   // 🎨 Cores personalizadas
-  const primary = data.primaryColor || '#1a1a1a';
+  const primary = data.primaryColor || '#ffffff';
+  const secondary = data.secondaryColor || '#f5f5f5';
   const text = data.textColor || '#1a1a1a';
   const accent = data.accentColor || '#666666';
 
@@ -55,7 +56,7 @@ export function Birthday02({ data }: Props) {
         width: '400px',
         height: '400px',
         borderRadius: '20px',
-        border: `8px solid ${primary}`,
+        border: `8px solid ${text}`,
         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
       };
     }
@@ -76,7 +77,7 @@ export function Birthday02({ data }: Props) {
       width: '400px',
       height: '400px',
       borderRadius: '50%',
-      border: `8px solid ${primary}`,
+      border: `8px solid ${text}`,
       boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
     };
   };
@@ -86,7 +87,7 @@ export function Birthday02({ data }: Props) {
       style={{
         width: '1080px',
         height: '1920px',
-        background: data.primaryColor || '#ffffff',
+        background: `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`,
         position: 'relative',
         fontFamily: fontFamily,
         color: text,
@@ -101,7 +102,7 @@ export function Birthday02({ data }: Props) {
           left: '60px',
           right: '60px',
           bottom: '60px',
-          border: `1px solid ${primary}`,
+          border: `1px solid ${text}`,
           pointerEvents: 'none',
         }}
       />
@@ -135,25 +136,25 @@ export function Birthday02({ data }: Props) {
 
       {CakeComponent ? (
         <div style={{ position: 'absolute', top: '230px', right: '60px', opacity: 0.95 }}>
-          <CakeComponent size={160} color={primary} accent={accent} />
+          <CakeComponent size={160} color={accent} accent={text} />
         </div>
       ) : null}
 
       {Element2Component ? (
         <div style={{ position: 'absolute', top: '230px', left: '60px', opacity: 0.95 }}>
-          <Element2Component size={140} color={primary} accent={accent} />
+          <Element2Component size={140} color={accent} accent={text} />
         </div>
       ) : null}
 
       {Element3Component ? (
         <div style={{ position: 'absolute', bottom: '200px', right: '60px', opacity: 0.95 }}>
-          <Element3Component size={140} color={primary} accent={accent} />
+          <Element3Component size={140} color={accent} accent={text} />
         </div>
       ) : null}
 
       {Element4Component ? (
         <div style={{ position: 'absolute', bottom: '200px', left: '60px', opacity: 0.95 }}>
-          <Element4Component size={140} color={primary} accent={accent} />
+          <Element4Component size={140} color={accent} accent={text} />
         </div>
       ) : null}
 
@@ -195,6 +196,7 @@ export function Birthday02({ data }: Props) {
               fontWeight: 300,
               lineHeight: 1,
               letterSpacing: '4px',
+              color: text,
             }}
           >
             {data.age}
@@ -245,6 +247,7 @@ export function Birthday02({ data }: Props) {
             fontWeight: 400,
             textTransform: 'uppercase',
             letterSpacing: '4px',
+            color: text,
           }}
         >
           {data.date
@@ -288,6 +291,7 @@ export function Birthday02({ data }: Props) {
             letterSpacing: '2px',
             textTransform: 'uppercase',
             marginBottom: '16px',
+            color: text,
           }}
         >
           {data.venueName || 'Local'}

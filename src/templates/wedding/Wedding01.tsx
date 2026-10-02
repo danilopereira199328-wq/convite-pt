@@ -30,6 +30,7 @@ export function Wedding01({ data }: Props) {
 
   // 🎨 Cores personalizadas
   const primary = data.primaryColor || '#f8f5f0';
+  const secondary = data.secondaryColor || '#e8dfd3';
   const text = data.textColor || '#4a4a4a';
   const accent = data.accentColor || '#c9a96e';
 
@@ -85,7 +86,7 @@ export function Wedding01({ data }: Props) {
       style={{
         width: '1080px',
         height: '1920px',
-        background: `linear-gradient(135deg, ${primary} 0%, ${accent}20 100%)`,
+        background: `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`,
         position: 'relative',
         fontFamily: fontFamily,
         color: text,

@@ -30,6 +30,7 @@ export function BabyShower01({ data }: Props) {
 
   // 🎨 Cores personalizadas
   const primary = data.primaryColor || '#fce4ec';
+  const secondary = data.secondaryColor || '#f8bbd0';
   const text = data.textColor || '#c2185b';
   const accent = data.accentColor || '#e91e63';
 
@@ -85,7 +86,7 @@ export function BabyShower01({ data }: Props) {
       style={{
         width: '1080px',
         height: '1920px',
-        background: `linear-gradient(180deg, ${primary} 0%, ${accent}30 50%, ${primary} 100%)`,
+        background: `linear-gradient(180deg, ${primary} 0%, ${secondary} 50%, ${primary} 100%)`,
         position: 'relative',
         fontFamily: fontFamily,
         color: text,

@@ -30,6 +30,7 @@ export function Baptism01({ data }: Props) {
 
   // 🎨 Cores personalizadas
   const primary = data.primaryColor || '#e3f2fd';
+  const secondary = data.secondaryColor || '#bbdefb';
   const text = data.textColor || '#1a5490';
   const accent = data.accentColor || '#4a90d9';
 
@@ -85,7 +86,7 @@ export function Baptism01({ data }: Props) {
       style={{
         width: '1080px',
         height: '1920px',
-        background: `linear-gradient(180deg, ${primary} 0%, ${accent}30 50%, ${primary} 100%)`,
+        background: `linear-gradient(180deg, ${primary} 0%, ${secondary} 50%, ${primary} 100%)`,
         position: 'relative',
         fontFamily: fontFamily,
         color: text,

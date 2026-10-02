@@ -30,6 +30,7 @@ export function Communion01({ data }: Props) {
 
   // 🎨 Cores personalizadas
   const primary = data.primaryColor || '#fff9f0';
+  const secondary = data.secondaryColor || '#ffecd6';
   const text = data.textColor || '#8b5a2b';
   const accent = data.accentColor || '#d4a557';
 
@@ -85,7 +86,7 @@ export function Communion01({ data }: Props) {
       style={{
         width: '1080px',
         height: '1920px',
-        background: `linear-gradient(180deg, ${primary} 0%, ${accent}30 100%)`,
+        background: `linear-gradient(180deg, ${primary} 0%, ${secondary} 100%)`,
         position: 'relative',
         fontFamily: fontFamily,
         color: text,
