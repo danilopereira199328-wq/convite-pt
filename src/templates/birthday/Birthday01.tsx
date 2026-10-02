@@ -1,4 +1,6 @@
 import type { InviteData } from '../../types/invite';
+import { getCakeComponent } from '../../components/Cakes';
+import { getElementComponent } from '../../components/Elements';
 
 interface Props {
   data: InviteData;
@@ -21,6 +23,16 @@ function getFontFamily(fontFamily?: string): string {
 export function Birthday01({ data }: Props) {
   const hasPhoto = !!data.photo;
   const fontFamily = getFontFamily(data.fontFamily);
+  const CakeComponent = getCakeComponent(data.occasion, data.cakeId);
+  const Element2Component = getElementComponent(data.occasion, 'element2', data.element2Id);
+  const Element3Component = getElementComponent(data.occasion, 'element3', data.element3Id);
+  const Element4Component = getElementComponent(data.occasion, 'element4', data.element4Id);
+
+  // 🎨 Cores personalizadas
+  const primary = data.primaryColor || '#e91e63';
+  const secondary = data.secondaryColor || '#ffd700';
+  const text = data.textColor || '#ffffff';
+  const accent = data.accentColor || '#ffd700';
 
   const nameTop = hasPhoto ? 750 : 400;
   const ageTop = hasPhoto ? 1000 : 620;
@@ -44,7 +56,7 @@ export function Birthday01({ data }: Props) {
         width: '400px',
         height: '400px',
         borderRadius: '20px',
-        border: '8px solid rgba(255, 255, 255, 0.4)',
+        border: `8px solid ${text}66`,
         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
       };
     }
@@ -65,7 +77,7 @@ export function Birthday01({ data }: Props) {
       width: '400px',
       height: '400px',
       borderRadius: '50%',
-      border: '8px solid rgba(255, 255, 255, 0.4)',
+      border: `8px solid ${text}66`,
       boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
     };
   };
@@ -75,10 +87,10 @@ export function Birthday01({ data }: Props) {
       style={{
         width: '1080px',
         height: '1920px',
-        background: `linear-gradient(135deg, ${data.primaryColor} 0%, ${data.secondaryColor} 100%)`,
+        background: `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`,
         position: 'relative',
         fontFamily: fontFamily,
-        color: '#ffffff',
+        color: text,
         textAlign: 'center',
         overflow: 'hidden',
       }}
@@ -92,7 +104,7 @@ export function Birthday01({ data }: Props) {
             textTransform: 'uppercase',
             opacity: 0.9,
             paddingBottom: '12px',
-            borderBottom: '2px solid rgba(255, 255, 255, 0.5)',
+            borderBottom: `2px solid ${text}80`,
             fontFamily: 'Inter, sans-serif',
             display: 'inline-block',
           }}
@@ -100,6 +112,34 @@ export function Birthday01({ data }: Props) {
           Estás convidado!
         </span>
       </div>
+
+      {/* BOLO */}
+      {CakeComponent ? (
+        <div style={{ position: 'absolute', top: '230px', right: '60px', opacity: 0.95 }}>
+          <CakeComponent size={160} color={primary} accent={secondary} />
+        </div>
+      ) : null}
+
+      {/* ELEMENTO 2 */}
+      {Element2Component ? (
+        <div style={{ position: 'absolute', top: '230px', left: '60px', opacity: 0.95 }}>
+          <Element2Component size={140} color={primary} accent={secondary} />
+        </div>
+      ) : null}
+
+      {/* ELEMENTO 3 */}
+      {Element3Component ? (
+        <div style={{ position: 'absolute', bottom: '200px', right: '60px', opacity: 0.95 }}>
+          <Element3Component size={140} color={primary} accent={secondary} />
+        </div>
+      ) : null}
+
+      {/* ELEMENTO 4 */}
+      {Element4Component ? (
+        <div style={{ position: 'absolute', bottom: '200px', left: '60px', opacity: 0.95 }}>
+          <Element4Component size={140} color={primary} accent={secondary} />
+        </div>
+      ) : null}
 
       {/* FOTO */}
       {hasPhoto ? (
@@ -132,7 +172,7 @@ export function Birthday01({ data }: Props) {
         </h1>
       </div>
 
-      {/* IDADE */}
+      {/* Idade */}
       {data.age ? (
         <div style={{ position: 'absolute', top: `${ageTop}px`, left: 0, right: 0 }}>
           <div
@@ -199,7 +239,7 @@ export function Birthday01({ data }: Props) {
           left: '200px',
           right: '200px',
           height: '2px',
-          background: 'rgba(255, 255, 255, 0.3)',
+          background: `${text}50`,
         }}
       />
 

@@ -1,4 +1,6 @@
 import type { InviteData } from '../../types/invite';
+import { getCakeComponent } from '../../components/Cakes';
+import { getElementComponent } from '../../components/Elements';
 
 interface Props {
   data: InviteData;
@@ -21,6 +23,15 @@ function getFontFamily(fontFamily?: string): string {
 export function Birthday02({ data }: Props) {
   const hasPhoto = !!data.photo;
   const fontFamily = getFontFamily(data.fontFamily);
+  const CakeComponent = getCakeComponent(data.occasion, data.cakeId);
+  const Element2Component = getElementComponent(data.occasion, 'element2', data.element2Id);
+  const Element3Component = getElementComponent(data.occasion, 'element3', data.element3Id);
+  const Element4Component = getElementComponent(data.occasion, 'element4', data.element4Id);
+
+  // 🎨 Cores personalizadas
+  const primary = data.primaryColor || '#1a1a1a';
+  const text = data.textColor || '#1a1a1a';
+  const accent = data.accentColor || '#666666';
 
   const nameTop = hasPhoto ? 750 : 400;
   const ageTop = hasPhoto ? 1000 : 620;
@@ -44,7 +55,7 @@ export function Birthday02({ data }: Props) {
         width: '400px',
         height: '400px',
         borderRadius: '20px',
-        border: '8px solid #1a1a1a',
+        border: `8px solid ${primary}`,
         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
       };
     }
@@ -65,7 +76,7 @@ export function Birthday02({ data }: Props) {
       width: '400px',
       height: '400px',
       borderRadius: '50%',
-      border: '8px solid #1a1a1a',
+      border: `8px solid ${primary}`,
       boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
     };
   };
@@ -75,10 +86,10 @@ export function Birthday02({ data }: Props) {
       style={{
         width: '1080px',
         height: '1920px',
-        background: '#ffffff',
+        background: data.primaryColor || '#ffffff',
         position: 'relative',
         fontFamily: fontFamily,
-        color: '#1a1a1a',
+        color: text,
         textAlign: 'center',
         overflow: 'hidden',
       }}
@@ -90,7 +101,7 @@ export function Birthday02({ data }: Props) {
           left: '60px',
           right: '60px',
           bottom: '60px',
-          border: '1px solid #1a1a1a',
+          border: `1px solid ${primary}`,
           pointerEvents: 'none',
         }}
       />
@@ -101,7 +112,7 @@ export function Birthday02({ data }: Props) {
             fontSize: '20px',
             letterSpacing: '10px',
             textTransform: 'uppercase',
-            color: '#1a1a1a',
+            color: text,
             fontFamily: 'Inter, sans-serif',
             fontWeight: 300,
           }}
@@ -118,9 +129,33 @@ export function Birthday02({ data }: Props) {
           transform: 'translateX(-50%)',
           width: '40px',
           height: '1px',
-          background: '#1a1a1a',
+          background: text,
         }}
       />
+
+      {CakeComponent ? (
+        <div style={{ position: 'absolute', top: '230px', right: '60px', opacity: 0.95 }}>
+          <CakeComponent size={160} color={primary} accent={accent} />
+        </div>
+      ) : null}
+
+      {Element2Component ? (
+        <div style={{ position: 'absolute', top: '230px', left: '60px', opacity: 0.95 }}>
+          <Element2Component size={140} color={primary} accent={accent} />
+        </div>
+      ) : null}
+
+      {Element3Component ? (
+        <div style={{ position: 'absolute', bottom: '200px', right: '60px', opacity: 0.95 }}>
+          <Element3Component size={140} color={primary} accent={accent} />
+        </div>
+      ) : null}
+
+      {Element4Component ? (
+        <div style={{ position: 'absolute', bottom: '200px', left: '60px', opacity: 0.95 }}>
+          <Element4Component size={140} color={primary} accent={accent} />
+        </div>
+      ) : null}
 
       {hasPhoto ? (
         <div style={getPhotoStyle()}>
@@ -160,7 +195,6 @@ export function Birthday02({ data }: Props) {
               fontWeight: 300,
               lineHeight: 1,
               letterSpacing: '4px',
-              color: '#1a1a1a',
             }}
           >
             {data.age}
@@ -170,7 +204,7 @@ export function Birthday02({ data }: Props) {
               fontSize: '18px',
               letterSpacing: '12px',
               textTransform: 'uppercase',
-              color: '#666',
+              color: accent,
               fontFamily: 'Inter, sans-serif',
               marginTop: '12px',
             }}
@@ -187,8 +221,9 @@ export function Birthday02({ data }: Props) {
             fontStyle: 'italic',
             margin: 0,
             lineHeight: 1.7,
-            color: '#444',
+            color: text,
             fontWeight: 300,
+            opacity: 0.85,
           }}
         >
           {data.message || 'A tua presença é essencial!'}
@@ -210,7 +245,6 @@ export function Birthday02({ data }: Props) {
             fontWeight: 400,
             textTransform: 'uppercase',
             letterSpacing: '4px',
-            color: '#1a1a1a',
           }}
         >
           {data.date
@@ -221,7 +255,7 @@ export function Birthday02({ data }: Props) {
               })
             : 'Data'}
         </div>
-        <div style={{ fontSize: '20px', letterSpacing: '6px', color: '#666', marginTop: '16px' }}>
+        <div style={{ fontSize: '20px', letterSpacing: '6px', color: accent, marginTop: '16px' }}>
           {data.time || '00:00'}
         </div>
       </div>
@@ -234,7 +268,7 @@ export function Birthday02({ data }: Props) {
           transform: 'translateX(-50%)',
           width: '60px',
           height: '1px',
-          background: '#1a1a1a',
+          background: text,
         }}
       />
 
@@ -259,12 +293,12 @@ export function Birthday02({ data }: Props) {
           {data.venueName || 'Local'}
         </div>
         {data.venueAddress && (
-          <div style={{ fontSize: '18px', color: '#666', marginBottom: '6px', fontWeight: 300 }}>
+          <div style={{ fontSize: '18px', color: accent, marginBottom: '6px', fontWeight: 300 }}>
             {data.venueAddress}
           </div>
         )}
         {data.venueCity && (
-          <div style={{ fontSize: '18px', color: '#666', fontWeight: 300 }}>
+          <div style={{ fontSize: '18px', color: accent, fontWeight: 300 }}>
             {data.venueCity}
           </div>
         )}

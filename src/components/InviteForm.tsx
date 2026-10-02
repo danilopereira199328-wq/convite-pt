@@ -1,5 +1,7 @@
 import { useInviteStore } from '../store/inviteStore';
 import { getTemplatesByOccasion } from '../templates';
+import { CAKES_BY_OCCASION } from './Cakes';
+import { ELEMENTS_BY_CATEGORY } from './Elements';
 import type { OccasionType, FontFamily } from '../types/invite';
 
 const occasions: { value: OccasionType; label: string; emoji: string }[] = [
@@ -17,10 +19,60 @@ const fonts: { value: FontFamily; label: string; css: string }[] = [
   { value: 'lora', label: 'Romântica', css: 'Lora, Georgia, serif' },
 ];
 
+const CATEGORY_LABELS: Record<string, { e2: string; e3: string; e4: string }> = {
+  birthday: { e2: 'Balões', e3: 'Presentes', e4: 'Confetes' },
+  wedding: { e2: 'Anéis', e3: 'Rosas', e4: 'Corações' },
+  baptism: { e2: 'Pombas', e3: 'Gotas', e4: 'Velas' },
+  communion: { e2: 'Pombas', e3: 'Cálices', e4: 'Espigas' },
+  'baby-shower': { e2: 'Ursinhos', e3: 'Mamadeiras', e4: 'Nuvens' },
+};
+
+function RenderSelector({
+  title,
+  items,
+  selectedId,
+  onSelect,
+}: {
+  title: string;
+  items: Record<string, unknown>;
+  selectedId?: string;
+  onSelect: (id: string | undefined) => void;
+}) {
+  const ids = Object.keys(items);
+
+  return (
+    <>
+      <h2>{title}</h2>
+      <div className="cake-grid">
+        <button
+          type="button"
+          className={`cake-btn ${!selectedId ? 'active' : ''}`}
+          onClick={() => onSelect(undefined)}
+        >
+          <span className="cake-none">Sem</span>
+        </button>
+        {ids.map((id, index) => (
+          <button
+            key={id}
+            type="button"
+            className={`cake-btn ${selectedId === id ? 'active' : ''}`}
+            onClick={() => onSelect(id)}
+          >
+            <span className="cake-num">{index + 1}</span>
+          </button>
+        ))}
+      </div>
+    </>
+  );
+}
+
 export function InviteForm() {
   const { data, updateField, setOccasion, setTemplate } = useInviteStore();
 
   const templatesForOccasion = getTemplatesByOccasion(data.occasion);
+  const cakesForOccasion = CAKES_BY_OCCASION[data.occasion] || {};
+  const elementsData = ELEMENTS_BY_CATEGORY[data.occasion] || {};
+  const labels = CATEGORY_LABELS[data.occasion] || { e2: 'Elemento 2', e3: 'Elemento 3', e4: 'Elemento 4' };
 
   return (
     <div className="invite-form">
@@ -59,6 +111,43 @@ export function InviteForm() {
         </>
       )}
 
+      {/* 🎨 PALETA DE CORES */}
+      <h2>🎨 Paleta de Cores</h2>
+      <div className="color-palette-grid">
+        <div className="color-field">
+          <label>Cor Principal</label>
+          <input
+            type="color"
+            value={data.primaryColor}
+            onChange={(e) => updateField('primaryColor', e.target.value)}
+          />
+        </div>
+        <div className="color-field">
+          <label>Cor Secundária</label>
+          <input
+            type="color"
+            value={data.secondaryColor}
+            onChange={(e) => updateField('secondaryColor', e.target.value)}
+          />
+        </div>
+        <div className="color-field">
+          <label>Cor do Texto</label>
+          <input
+            type="color"
+            value={data.textColor || '#ffffff'}
+            onChange={(e) => updateField('textColor', e.target.value)}
+          />
+        </div>
+        <div className="color-field">
+          <label>Cor de Acento</label>
+          <input
+            type="color"
+            value={data.accentColor || '#ffd700'}
+            onChange={(e) => updateField('accentColor', e.target.value)}
+          />
+        </div>
+      </div>
+
       {/* SELETOR DE FONTE */}
       <h2>Fonte</h2>
       <div className="font-grid">
@@ -75,6 +164,44 @@ export function InviteForm() {
           </button>
         ))}
       </div>
+
+      {/* SELETOR DE BOLO */}
+      <RenderSelector
+        title="🍰 Bolo (opcional)"
+        items={cakesForOccasion}
+        selectedId={data.cakeId}
+        onSelect={(id) => updateField('cakeId', id)}
+      />
+
+      {/* SELETOR ELEMENTO 2 */}
+      {elementsData.element2 && (
+        <RenderSelector
+          title={`✨ ${labels.e2}`}
+          items={elementsData.element2}
+          selectedId={data.element2Id}
+          onSelect={(id) => updateField('element2Id', id)}
+        />
+      )}
+
+      {/* SELETOR ELEMENTO 3 */}
+      {elementsData.element3 && (
+        <RenderSelector
+          title={`✨ ${labels.e3}`}
+          items={elementsData.element3}
+          selectedId={data.element3Id}
+          onSelect={(id) => updateField('element3Id', id)}
+        />
+      )}
+
+      {/* SELETOR ELEMENTO 4 */}
+      {elementsData.element4 && (
+        <RenderSelector
+          title={`✨ ${labels.e4}`}
+          items={elementsData.element4}
+          selectedId={data.element4Id}
+          onSelect={(id) => updateField('element4Id', id)}
+        />
+      )}
 
       {/* FOTO */}
       <h2>Foto (opcional)</h2>
@@ -240,27 +367,6 @@ export function InviteForm() {
           rows={3}
         />
       </div>
-
-      {data.occasion === 'birthday' && data.templateId === 'birthday-01' && (
-        <div className="form-row">
-          <div className="form-field">
-            <label>Cor Principal</label>
-            <input
-              type="color"
-              value={data.primaryColor}
-              onChange={(e) => updateField('primaryColor', e.target.value)}
-            />
-          </div>
-          <div className="form-field">
-            <label>Cor Secundária</label>
-            <input
-              type="color"
-              value={data.secondaryColor}
-              onChange={(e) => updateField('secondaryColor', e.target.value)}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

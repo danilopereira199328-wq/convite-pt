@@ -1,15 +1,15 @@
 import type { InviteData } from '../types/invite';
+import { getCakeSvgString, svgStringToImage } from './cakeToSvg';
+import { getElementSvgString } from './elementsToSvg';
 
 interface ExportOptions {
   data: InviteData;
-  isPremium: boolean;
 }
 
 interface OccasionStyle {
   textColor: string;
   backgroundColor: string | null;
   accentColor?: string;
-  mutedColor?: string;
   label: string;
   footer: string;
   useGradient: boolean;
@@ -30,7 +30,6 @@ const OCCASION_STYLES: Record<string, OccasionStyle> = {
     textColor: '#1a1a1a',
     backgroundColor: '#ffffff',
     accentColor: '#1a1a1a',
-    mutedColor: '#666666',
     label: 'CONVITE',
     footer: '',
     useGradient: false,
@@ -40,7 +39,6 @@ const OCCASION_STYLES: Record<string, OccasionStyle> = {
     textColor: '#d4af37',
     backgroundColor: '#0f0f0f',
     accentColor: '#d4af37',
-    mutedColor: '#e8d9a0',
     label: 'ESTÁS CONVIDADO',
     footer: '',
     useGradient: false,
@@ -94,37 +92,21 @@ const FONT_MAP: Record<string, string> = {
 
 export async function exportInviteAsPNG({
   data,
-  isPremium,
 }: ExportOptions): Promise<void> {
-  console.log('🔵 [1] Função iniciada');
-  console.log('🔵 [1a] Data recebida:', data);
-
   const WIDTH = 1080;
   const HEIGHT = 1920;
   const hasPhoto = !!data.photo;
-
-  console.log('🔵 [2] Variáveis definidas');
 
   const canvas = document.createElement('canvas');
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
   const ctx = canvas.getContext('2d');
-
-  if (!ctx) {
-    console.error('❌ [3] ctx é null!');
-    return;
-  }
-
-  console.log('🔵 [3] Canvas criado');
+  if (!ctx) return;
 
   const style = OCCASION_STYLES[data.templateId] || OCCASION_STYLES['birthday-01'];
   const chosenFont = FONT_MAP[data.fontFamily || 'playfair'] || FONT_MAP.playfair;
 
-  console.log('🔵 [4] Style:', style);
-  console.log('🔵 [5] Fonte:', chosenFont);
-
   // === 1. FUNDO ===
-  console.log('🔵 [A] A desenhar fundo...');
   if (style.backgroundGradient) {
     const gradient = ctx.createLinearGradient(0, 0, 0, HEIGHT);
     gradient.addColorStop(0, style.backgroundGradient.from);
@@ -142,10 +124,8 @@ export async function exportInviteAsPNG({
     ctx.fillStyle = style.backgroundColor || '#ffffff';
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
   }
-  console.log('🔵 [A] Fundo OK');
 
   // === 2. MOLDURA ===
-  console.log('🔵 [B] A desenhar moldura...');
   if (data.templateId === 'birthday-02') {
     ctx.strokeStyle = '#1a1a1a';
     ctx.lineWidth = 1;
@@ -165,11 +145,85 @@ export async function exportInviteAsPNG({
     ctx.lineWidth = 1;
     ctx.strokeRect(80, 80, WIDTH - 160, HEIGHT - 160);
   }
-  console.log('🔵 [B] Moldura OK');
 
-  // === 3. FOTO ===
+    // === 3. BOLO (canto superior DIREITO) ===
+  if (data.cakeId) {
+    try {
+      const svgString = getCakeSvgString(data);
+      if (svgString) {
+        const img = await svgStringToImage(svgString);
+        const size = 160;
+        const x = WIDTH - size - 60;
+        const y = 230;
+        ctx.save();
+        ctx.globalAlpha = 0.95;
+        ctx.drawImage(img, x, y, size, size);
+        ctx.restore();
+      }
+    } catch (error) {
+      console.error('Erro ao carregar bolo:', error);
+    }
+  }
+
+  // === 3.1 ELEMENTO 2 (canto superior ESQUERDO) ===
+  if (data.element2Id) {
+    try {
+      const svgString = getElementSvgString(data, 'element2');
+      if (svgString) {
+        const img = await svgStringToImage(svgString);
+        const size = 140;
+        const x = 60;
+        const y = 230;
+        ctx.save();
+        ctx.globalAlpha = 0.95;
+        ctx.drawImage(img, x, y, size, size);
+        ctx.restore();
+      }
+    } catch (error) {
+      console.error('Erro ao carregar elemento 2:', error);
+    }
+  }
+
+  // === 3.2 ELEMENTO 3 (canto inferior DIREITO) ===
+  if (data.element3Id) {
+    try {
+      const svgString = getElementSvgString(data, 'element3');
+      if (svgString) {
+        const img = await svgStringToImage(svgString);
+        const size = 140;
+        const x = WIDTH - size - 60;
+        const y = HEIGHT - size - 200;
+        ctx.save();
+        ctx.globalAlpha = 0.95;
+        ctx.drawImage(img, x, y, size, size);
+        ctx.restore();
+      }
+    } catch (error) {
+      console.error('Erro ao carregar elemento 3:', error);
+    }
+  }
+
+  // === 3.3 ELEMENTO 4 (canto inferior ESQUERDO) ===
+  if (data.element4Id) {
+    try {
+      const svgString = getElementSvgString(data, 'element4');
+      if (svgString) {
+        const img = await svgStringToImage(svgString);
+        const size = 140;
+        const x = 60;
+        const y = HEIGHT - size - 200;
+        ctx.save();
+        ctx.globalAlpha = 0.95;
+        ctx.drawImage(img, x, y, size, size);
+        ctx.restore();
+      }
+    } catch (error) {
+      console.error('Erro ao carregar elemento 4:', error);
+    }
+  }
+
+  // === 4. FOTO ===
   if (hasPhoto) {
-    console.log('🔵 [C] A processar foto...');
     try {
       const img = new Image();
       img.src = data.photo!;
@@ -177,8 +231,6 @@ export async function exportInviteAsPNG({
         img.onload = resolve;
         img.onerror = reject;
       });
-
-      console.log('🔵 [C1] Imagem carregada');
 
       const photoSize = 400;
       const photoX = (WIDTH - photoSize) / 2;
@@ -248,21 +300,16 @@ export async function exportInviteAsPNG({
           ctx.stroke();
         }
       }
-
-      console.log('🔵 [C2] Foto OK');
     } catch (error) {
-      console.error('❌ [C3] Erro na foto:', error);
+      console.error('Erro ao carregar foto:', error);
     }
-  } else {
-    console.log('🔵 [C] Sem foto');
   }
 
-  // === 4. COR DO TEXTO ===
+  // === 5. COR DO TEXTO ===
   ctx.fillStyle = style.textColor;
   ctx.textAlign = 'center';
 
-  // === 5. LABEL ===
-  console.log('🔵 [D] A desenhar label...');
+  // === 6. LABEL ===
   const labelFontSize = data.templateId === 'birthday-02' ? 20 : 24;
   ctx.font = `${labelFontSize}px Inter, sans-serif`;
   if (style.accentColor) ctx.fillStyle = style.accentColor;
@@ -285,10 +332,8 @@ export async function exportInviteAsPNG({
   }
   ctx.globalAlpha = 1;
   ctx.fillStyle = style.textColor;
-  console.log('🔵 [D] Label OK');
 
-  // === 6. NOME ===
-  console.log('🔵 [E] A desenhar nome...');
+  // === 7. NOME ===
   const name = data.honoreeName || 'Nome';
   const nameLen = name.length;
   let nameFontSize = 100;
@@ -308,11 +353,9 @@ export async function exportInviteAsPNG({
   }
   ctx.fillText(name, WIDTH / 2, nameY);
   ctx.shadowBlur = 0;
-  console.log('🔵 [E] Nome OK');
 
-  // === 7. IDADE ===
+  // === 8. IDADE ===
   if (data.occasion === 'birthday' && data.age) {
-    console.log('🔵 [F] A desenhar idade...');
     const ageFontSize = hasPhoto ? 120 : 180;
     const ageY = hasPhoto ? 1120 : 750;
     const anosY = hasPhoto ? 1180 : 810;
@@ -331,21 +374,15 @@ export async function exportInviteAsPNG({
     ctx.fillText(String(data.age), WIDTH / 2, ageY);
     ctx.shadowBlur = 0;
 
-    if (data.templateId === 'birthday-03') {
-      ctx.fillStyle = '#d4af37';
-    } else if (data.templateId === 'birthday-02') {
-      ctx.fillStyle = '#666666';
-    } else {
-      ctx.fillStyle = style.textColor;
-    }
+    if (data.templateId === 'birthday-03') ctx.fillStyle = '#d4af37';
+    else if (data.templateId === 'birthday-02') ctx.fillStyle = '#666666';
+    else ctx.fillStyle = style.textColor;
 
     ctx.font = `${hasPhoto ? 22 : 26}px Inter, sans-serif`;
     ctx.fillText('A N O S', WIDTH / 2, anosY);
-    console.log('🔵 [F] Idade OK');
   }
 
-  // === 8. MENSAGEM ===
-  console.log('🔵 [G] A desenhar mensagem...');
+  // === 9. MENSAGEM ===
   const defaultMsg: Record<string, string> = {
     birthday: 'A tua presença é essencial!',
     wedding: 'É com grande alegria que convidamos para celebrar o nosso casamento',
@@ -358,20 +395,14 @@ export async function exportInviteAsPNG({
   const msgY = hasPhoto ? 1350 : 1050;
   const msgFontSize = data.templateId === 'birthday-02' ? 26 : 30;
 
-  if (data.templateId === 'birthday-03') {
-    ctx.fillStyle = '#e8d9a0';
-  } else if (data.templateId === 'birthday-02') {
-    ctx.fillStyle = '#444444';
-  } else {
-    ctx.fillStyle = style.textColor;
-  }
+  if (data.templateId === 'birthday-03') ctx.fillStyle = '#e8d9a0';
+  else if (data.templateId === 'birthday-02') ctx.fillStyle = '#444444';
+  else ctx.fillStyle = style.textColor;
 
   ctx.font = `italic ${msgFontSize}px ${chosenFont}`;
   ctx.fillText(msg, WIDTH / 2, msgY);
-  console.log('🔵 [G] Mensagem OK');
 
-  // === 9. DATA ===
-  console.log('🔵 [H] A desenhar data...');
+  // === 10. DATA ===
   const formattedDate = data.date
     ? new Date(data.date + 'T00:00:00').toLocaleDateString('pt-PT', {
         day: '2-digit',
@@ -393,10 +424,8 @@ export async function exportInviteAsPNG({
 
   ctx.font = `24px Inter, sans-serif`;
   ctx.fillText(`ÀS ${data.time || '00:00'}`, WIDTH / 2, timeY);
-  console.log('🔵 [H] Data OK');
 
-  // === 10. SEPARADOR ===
-  console.log('🔵 [I] A desenhar separador...');
+  // === 11. SEPARADOR ===
   const separatorY = hasPhoto ? 1650 : 1420;
 
   ctx.strokeStyle = style.accentColor || style.textColor;
@@ -412,10 +441,8 @@ export async function exportInviteAsPNG({
   }
   ctx.stroke();
   ctx.globalAlpha = 1;
-  console.log('🔵 [I] Separador OK');
 
-  // === 11. LOCAL ===
-  console.log('🔵 [J] A desenhar local...');
+  // === 12. LOCAL ===
   const venueY = hasPhoto ? 1720 : 1520;
   const addressY = hasPhoto ? 1770 : 1570;
   const cityY = hasPhoto ? 1810 : 1610;
@@ -439,45 +466,21 @@ export async function exportInviteAsPNG({
     ctx.font = `22px Inter, sans-serif`;
     ctx.fillText(data.venueCity, WIDTH / 2, cityY);
   }
-  console.log('🔵 [J] Local OK');
 
-  // === 12. RODAPÉ ===
+  // === 13. RODAPÉ ===
   if (style.footer) {
-    console.log('🔵 [K] A desenhar rodapé...');
     ctx.fillStyle = style.accentColor || style.textColor;
     ctx.font = `18px Inter, sans-serif`;
     ctx.fillText(style.footer.toUpperCase(), WIDTH / 2, hasPhoto ? 1860 : 1750);
-    console.log('🔵 [K] Rodapé OK');
-  }
-
-  // === 13. MARCA D'ÁGUA ===
-  if (!isPremium) {
-    console.log('🔵 [L] A desenhar marca d\'água...');
-    ctx.save();
-    ctx.globalAlpha = 0.25;
-    ctx.fillStyle = '#000000';
-    ctx.font = 'bold 60px Inter, sans-serif';
-    ctx.translate(WIDTH / 2, HEIGHT / 2);
-    ctx.rotate(-Math.PI / 4);
-    ctx.fillText('Criado com Convite.pt', 0, 0);
-    ctx.restore();
-    console.log('🔵 [L] Marca d\'água OK');
   }
 
   // === 14. DOWNLOAD ===
-  console.log('🔵 [M] A preparar download...');
-
   const safeName = (data.honoreeName || 'convite')
     .toLowerCase()
     .replace(/[^a-z0-9]/g, '-');
 
-  try {
-    const link = document.createElement('a');
-    link.download = `convite-${safeName}.png`;
-    link.href = canvas.toDataURL('image/png', 1.0);
-    link.click();
-    console.log('🔵 [N] Download feito!');
-  } catch (error) {
-    console.error('❌ [N] Erro no download:', error);
-  }
+  const link = document.createElement('a');
+  link.download = `convite-${safeName}.png`;
+  link.href = canvas.toDataURL('image/png', 1.0);
+  link.click();
 }

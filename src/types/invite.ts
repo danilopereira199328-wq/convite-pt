@@ -29,11 +29,20 @@ export interface InviteData {
   dressCode?: string;
   rsvpContact?: string;
 
-  primaryColor: string;
-  secondaryColor: string;
+  // 🎨 Cores personalizáveis (4)
+  primaryColor: string;    // Cor principal (fundo/gradiente)
+  secondaryColor: string;  // Cor secundária (gradiente/acentos)
+  textColor?: string;      // Cor do texto principal (opcional)
+  accentColor?: string;    // Cor de destaque (bordas, elementos - opcional)
 
   photo?: string;
   photoShape?: PhotoShape;
 
   fontFamily?: FontFamily;
+
+  // Decorações
+  cakeId?: string;
+  element2Id?: string;
+  element3Id?: string;
+  element4Id?: string;
 }

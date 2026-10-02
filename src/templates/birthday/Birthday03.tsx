@@ -1,4 +1,6 @@
 import type { InviteData } from '../../types/invite';
+import { getCakeComponent } from '../../components/Cakes';
+import { getElementComponent } from '../../components/Elements';
 
 interface Props {
   data: InviteData;
@@ -21,6 +23,16 @@ function getFontFamily(fontFamily?: string): string {
 export function Birthday03({ data }: Props) {
   const hasPhoto = !!data.photo;
   const fontFamily = getFontFamily(data.fontFamily);
+  const CakeComponent = getCakeComponent(data.occasion, data.cakeId);
+  const Element2Component = getElementComponent(data.occasion, 'element2', data.element2Id);
+  const Element3Component = getElementComponent(data.occasion, 'element3', data.element3Id);
+  const Element4Component = getElementComponent(data.occasion, 'element4', data.element4Id);
+
+  // 🎨 Cores personalizadas
+  const primary = data.primaryColor || '#0f0f0f';
+  const secondary = data.secondaryColor || '#1a1a1a';
+  const text = data.textColor || '#d4af37';
+  const accent = data.accentColor || '#d4af37';
 
   const nameTop = hasPhoto ? 750 : 400;
   const ageTop = hasPhoto ? 1000 : 620;
@@ -44,8 +56,8 @@ export function Birthday03({ data }: Props) {
         width: '400px',
         height: '400px',
         borderRadius: '20px',
-        border: '8px solid #d4af37',
-        boxShadow: '0 20px 60px rgba(212, 175, 55, 0.3)',
+        border: `8px solid ${accent}`,
+        boxShadow: `0 20px 60px ${accent}50`,
       };
     }
 
@@ -56,7 +68,7 @@ export function Birthday03({ data }: Props) {
         height: '500px',
         clipPath:
           'path("M 280 420 C 280 420 40 280 40 160 C 40 90 90 40 160 40 C 210 40 250 70 280 110 C 310 70 350 40 400 40 C 470 40 520 90 520 160 C 520 280 280 420 280 420 Z")',
-        boxShadow: '0 20px 60px rgba(212, 175, 55, 0.3)',
+        boxShadow: `0 20px 60px ${accent}50`,
       };
     }
 
@@ -65,8 +77,8 @@ export function Birthday03({ data }: Props) {
       width: '400px',
       height: '400px',
       borderRadius: '50%',
-      border: '8px solid #d4af37',
-      boxShadow: '0 20px 60px rgba(212, 175, 55, 0.3)',
+      border: `8px solid ${accent}`,
+      boxShadow: `0 20px 60px ${accent}50`,
     };
   };
 
@@ -75,10 +87,10 @@ export function Birthday03({ data }: Props) {
       style={{
         width: '1080px',
         height: '1920px',
-        background: 'linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%)',
+        background: `linear-gradient(180deg, ${primary} 0%, ${secondary} 50%, ${primary} 100%)`,
         position: 'relative',
         fontFamily: fontFamily,
-        color: '#d4af37',
+        color: text,
         textAlign: 'center',
         overflow: 'hidden',
       }}
@@ -90,7 +102,7 @@ export function Birthday03({ data }: Props) {
           left: '60px',
           right: '60px',
           bottom: '60px',
-          border: '2px solid #d4af37',
+          border: `2px solid ${accent}`,
           pointerEvents: 'none',
         }}
       />
@@ -101,7 +113,7 @@ export function Birthday03({ data }: Props) {
           left: '80px',
           right: '80px',
           bottom: '80px',
-          border: '1px solid rgba(212, 175, 55, 0.5)',
+          border: `1px solid ${accent}80`,
           pointerEvents: 'none',
         }}
       />
@@ -113,7 +125,7 @@ export function Birthday03({ data }: Props) {
           left: '50%',
           transform: 'translateX(-50%)',
           fontSize: '30px',
-          color: '#d4af37',
+          color: accent,
         }}
       >
         ✦
@@ -125,7 +137,7 @@ export function Birthday03({ data }: Props) {
             fontSize: '18px',
             letterSpacing: '8px',
             textTransform: 'uppercase',
-            color: '#d4af37',
+            color: accent,
             fontFamily: 'Inter, sans-serif',
             fontWeight: 400,
           }}
@@ -133,6 +145,30 @@ export function Birthday03({ data }: Props) {
           Estás convidado
         </span>
       </div>
+
+      {CakeComponent ? (
+        <div style={{ position: 'absolute', top: '280px', right: '60px', opacity: 0.95 }}>
+          <CakeComponent size={160} color={accent} accent={text} />
+        </div>
+      ) : null}
+
+      {Element2Component ? (
+        <div style={{ position: 'absolute', top: '280px', left: '60px', opacity: 0.95 }}>
+          <Element2Component size={140} color={accent} accent={text} />
+        </div>
+      ) : null}
+
+      {Element3Component ? (
+        <div style={{ position: 'absolute', bottom: '200px', right: '60px', opacity: 0.95 }}>
+          <Element3Component size={140} color={accent} accent={text} />
+        </div>
+      ) : null}
+
+      {Element4Component ? (
+        <div style={{ position: 'absolute', bottom: '200px', left: '60px', opacity: 0.95 }}>
+          <Element4Component size={140} color={accent} accent={text} />
+        </div>
+      ) : null}
 
       {hasPhoto ? (
         <div style={getPhotoStyle()}>
@@ -156,9 +192,9 @@ export function Birthday03({ data }: Props) {
             fontWeight: 700,
             margin: 0,
             lineHeight: 1.2,
-            color: '#d4af37',
+            color: text,
             wordBreak: 'break-word',
-            textShadow: '0 2px 20px rgba(212, 175, 55, 0.3)',
+            textShadow: `0 2px 20px ${text}50`,
           }}
         >
           {data.honoreeName || 'O teu nome'}
@@ -172,8 +208,8 @@ export function Birthday03({ data }: Props) {
               fontSize: hasPhoto ? '120px' : '180px',
               fontWeight: 900,
               lineHeight: 1,
-              color: '#d4af37',
-              textShadow: '0 2px 30px rgba(212, 175, 55, 0.4)',
+              color: accent,
+              textShadow: `0 2px 30px ${accent}66`,
             }}
           >
             {data.age}
@@ -183,7 +219,7 @@ export function Birthday03({ data }: Props) {
               fontSize: '20px',
               letterSpacing: '12px',
               textTransform: 'uppercase',
-              color: '#d4af37',
+              color: accent,
               fontFamily: 'Inter, sans-serif',
               marginTop: '10px',
               fontWeight: 300,
@@ -201,7 +237,7 @@ export function Birthday03({ data }: Props) {
             fontStyle: 'italic',
             margin: 0,
             lineHeight: 1.6,
-            color: '#e8d9a0',
+            color: text,
             fontWeight: 300,
           }}
         >
@@ -224,7 +260,7 @@ export function Birthday03({ data }: Props) {
             fontWeight: 400,
             textTransform: 'uppercase',
             letterSpacing: '3px',
-            color: '#d4af37',
+            color: accent,
           }}
         >
           {data.date
@@ -235,7 +271,7 @@ export function Birthday03({ data }: Props) {
               })
             : 'Data'}
         </div>
-        <div style={{ fontSize: '22px', letterSpacing: '6px', color: '#d4af37', marginTop: '16px' }}>
+        <div style={{ fontSize: '22px', letterSpacing: '6px', color: accent, marginTop: '16px' }}>
           {data.time || '00:00'}
         </div>
       </div>
@@ -248,7 +284,7 @@ export function Birthday03({ data }: Props) {
           transform: 'translateX(-50%)',
           width: '80px',
           height: '1px',
-          background: '#d4af37',
+          background: accent,
         }}
       />
 
@@ -267,19 +303,19 @@ export function Birthday03({ data }: Props) {
             fontWeight: 500,
             letterSpacing: '2px',
             textTransform: 'uppercase',
-            color: '#d4af37',
+            color: accent,
             marginBottom: '16px',
           }}
         >
           {data.venueName || 'Local'}
         </div>
         {data.venueAddress && (
-          <div style={{ fontSize: '18px', color: '#e8d9a0', marginBottom: '6px', fontWeight: 300 }}>
+          <div style={{ fontSize: '18px', color: text, marginBottom: '6px', fontWeight: 300 }}>
             {data.venueAddress}
           </div>
         )}
         {data.venueCity && (
-          <div style={{ fontSize: '18px', color: '#e8d9a0', fontWeight: 300 }}>
+          <div style={{ fontSize: '18px', color: text, fontWeight: 300 }}>
             {data.venueCity}
           </div>
         )}
@@ -292,7 +328,7 @@ export function Birthday03({ data }: Props) {
           left: '50%',
           transform: 'translateX(-50%)',
           fontSize: '24px',
-          color: '#d4af37',
+          color: accent,
           letterSpacing: '20px',
         }}
       >
