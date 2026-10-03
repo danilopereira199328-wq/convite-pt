@@ -5,6 +5,7 @@ import { Wedding01 } from './wedding/Wedding01';
 import { Baptism01 } from './baptism/Baptism01';
 import { Communion01 } from './communion/Communion01';
 import { BabyShower01 } from './baby-shower/BabyShower01';
+import { Custom01 } from './custom/Custom01';
 
 export const templates = {
   // Aniversário
@@ -53,6 +54,13 @@ export const templates = {
     name: 'Delicado',
     occasion: 'baby-shower',
     component: BabyShower01,
+  },
+  // Personalizado / Outro
+  'custom-01': {
+    id: 'custom-01',
+    name: 'Elegante',
+    occasion: 'custom',
+    component: Custom01,
   },
 };
 

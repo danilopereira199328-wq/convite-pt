@@ -427,6 +427,67 @@ export const CakeBaby5: React.FC<CakeProps> = ({ size = 200, color = '#fce4ec', 
 );
 
 // ============================================
+// ✨ PERSONALIZADO / OUTRO
+// ============================================
+
+export const CakeCustom1: React.FC<CakeProps> = ({ size = 200, accent = '#e8c547' }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+    <ellipse cx="50" cy="88" rx="42" ry="4" fill={accent} opacity="0.4"/>
+    <rect x="15" y="65" width="70" height="22" rx="3" fill={accent}/>
+    <ellipse cx="50" cy="65" rx="35" ry="4" fill="#fff"/>
+    <rect x="25" y="45" width="50" height="22" rx="3" fill="#fff" stroke={accent} strokeWidth="1.5"/>
+    <ellipse cx="50" cy="45" rx="25" ry="3" fill={accent}/>
+    <circle cx="50" cy="30" r="4" fill={accent}/>
+  </svg>
+);
+
+export const CakeCustom2: React.FC<CakeProps> = ({ size = 200, accent = '#e8c547' }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+    <ellipse cx="50" cy="88" rx="42" ry="4" fill={accent} opacity="0.4"/>
+    <rect x="20" y="70" width="60" height="16" rx="2" fill="#fff" stroke={accent} strokeWidth="2"/>
+    <rect x="30" y="52" width="40" height="18" rx="2" fill="#fff" stroke={accent} strokeWidth="2"/>
+    <rect x="40" y="38" width="20" height="14" rx="2" fill="#fff" stroke={accent} strokeWidth="2"/>
+    <line x1="20" y1="72" x2="80" y2="72" stroke={accent} strokeWidth="1"/>
+    <line x1="30" y1="54" x2="70" y2="54" stroke={accent} strokeWidth="1"/>
+    <line x1="40" y1="40" x2="60" y2="40" stroke={accent} strokeWidth="1"/>
+  </svg>
+);
+
+export const CakeCustom3: React.FC<CakeProps> = ({ size = 200, accent = '#e8c547' }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+    <ellipse cx="50" cy="88" rx="35" ry="3" fill={accent} opacity="0.4"/>
+    <path d="M 25 85 Q 20 55 50 30 Q 80 55 75 85 Z" fill="#fff" stroke={accent} strokeWidth="2"/>
+    <circle cx="50" cy="50" r="4" fill={accent}/>
+    <circle cx="35" cy="65" r="3" fill={accent} opacity="0.7"/>
+    <circle cx="65" cy="65" r="3" fill={accent} opacity="0.7"/>
+    <circle cx="50" cy="30" r="3" fill={accent}/>
+  </svg>
+);
+
+export const CakeCustom4: React.FC<CakeProps> = ({ size = 200, accent = '#e8c547' }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+    <ellipse cx="50" cy="88" rx="40" ry="3" fill={accent} opacity="0.4"/>
+    <ellipse cx="50" cy="75" rx="30" ry="8" fill={accent}/>
+    <rect x="20" y="75" width="60" height="10" fill={accent}/>
+    <ellipse cx="50" cy="85" rx="30" ry="3" fill={accent} opacity="0.6"/>
+    <ellipse cx="50" cy="60" rx="20" ry="6" fill="#fff" stroke={accent} strokeWidth="1.5"/>
+    <ellipse cx="50" cy="45" rx="12" ry="4" fill={accent}/>
+    <circle cx="50" cy="35" r="3" fill={accent}/>
+  </svg>
+);
+
+export const CakeCustom5: React.FC<CakeProps> = ({ size = 200, accent = '#e8c547' }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+    <ellipse cx="50" cy="88" rx="42" ry="4" fill={accent} opacity="0.4"/>
+    <rect x="15" y="72" width="70" height="14" rx="2" fill={accent}/>
+    <rect x="25" y="56" width="50" height="16" rx="2" fill="#fff" stroke={accent} strokeWidth="1"/>
+    <rect x="35" y="42" width="30" height="14" rx="2" fill={accent} opacity="0.7"/>
+    <circle cx="50" cy="30" r="5" fill={accent}/>
+    <path d="M 42 32 L 50 25 L 58 32" stroke={accent} strokeWidth="1.5" fill="none"/>
+  </svg>
+);
+
+// ============================================
 // MAPEAMENTO DE BOLOS POR OCASIÃO
 // ============================================
 
@@ -459,12 +520,19 @@ export const CAKES_BY_OCCASION: Record<string, Record<string, React.FC<CakeProps
     'cake-04': CakeCommunion4,
     'cake-05': CakeCommunion5,
   },
-  'baby-shower': {
+    'baby-shower': {
     'cake-01': CakeBaby1,
     'cake-02': CakeBaby2,
     'cake-03': CakeBaby3,
     'cake-04': CakeBaby4,
     'cake-05': CakeBaby5,
+  },
+  custom: {
+    'cake-01': CakeCustom1,
+    'cake-02': CakeCustom2,
+    'cake-03': CakeCustom3,
+    'cake-04': CakeCustom4,
+    'cake-05': CakeCustom5,
   },
 };
 

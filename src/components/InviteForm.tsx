@@ -10,6 +10,7 @@ const occasions: { value: OccasionType; label: string; emoji: string }[] = [
   { value: 'baptism', label: 'Batizado', emoji: '💧' },
   { value: 'communion', label: 'Comunhão', emoji: '🕊️' },
   { value: 'baby-shower', label: 'Baby Shower', emoji: '👶' },
+  { value: 'custom', label: 'Outro / Personalizado', emoji: '✨' },
 ];
 
 const fonts: { value: FontFamily; label: string; css: string }[] = [
@@ -25,6 +26,7 @@ const CATEGORY_LABELS: Record<string, { e2: string; e3: string; e4: string }> = 
   baptism: { e2: 'Pombas', e3: 'Gotas', e4: 'Velas' },
   communion: { e2: 'Pombas', e3: 'Cálices', e4: 'Espigas' },
   'baby-shower': { e2: 'Ursinhos', e3: 'Mamadeiras', e4: 'Nuvens' },
+  custom: { e2: 'Estrelas', e3: 'Corações', e4: 'Formas' },
 };
 
 function RenderSelector({
@@ -276,11 +278,13 @@ export function InviteForm() {
       <h2>Dados do Convite</h2>
 
       <div className="form-field">
-        <label>
+                <label>
           {data.occasion === 'baby-shower'
             ? 'Nome do Bebé'
             : data.occasion === 'wedding'
             ? 'Nome dos Noivos'
+            : data.occasion === 'custom'
+            ? 'Título do Evento'
             : 'Nome'}
         </label>
         <input
@@ -292,6 +296,8 @@ export function InviteForm() {
               ? 'Ex: Ana & Pedro'
               : data.occasion === 'baby-shower'
               ? 'Ex: Mateus'
+              : data.occasion === 'custom'
+              ? 'Ex: Festa de Fim de Ano'
               : 'Ex: Maria Silva'
           }
         />

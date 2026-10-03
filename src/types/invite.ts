@@ -3,7 +3,8 @@ export type OccasionType =
   | 'wedding'
   | 'baptism'
   | 'communion'
-  | 'baby-shower';
+  | 'baby-shower'
+  | 'custom';
 
 export type PhotoShape = 'circle' | 'square' | 'heart';
 
@@ -29,18 +30,16 @@ export interface InviteData {
   dressCode?: string;
   rsvpContact?: string;
 
-  // 🎨 Cores personalizáveis (4)
-  primaryColor: string;    // Cor principal (fundo/gradiente)
-  secondaryColor: string;  // Cor secundária (gradiente/acentos)
-  textColor?: string;      // Cor do texto principal (opcional)
-  accentColor?: string;    // Cor de destaque (bordas, elementos - opcional)
+  primaryColor: string;
+  secondaryColor: string;
+  textColor?: string;
+  accentColor?: string;
 
   photo?: string;
   photoShape?: PhotoShape;
 
   fontFamily?: FontFamily;
 
-  // Decorações
   cakeId?: string;
   element2Id?: string;
   element3Id?: string;

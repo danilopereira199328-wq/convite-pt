@@ -72,13 +72,22 @@ const OCCASION_STYLES: Record<string, OccasionStyle> = {
     useGradient: false,
     fontWeight: 700,
   },
-  'baby-shower-01': {
+    'baby-shower-01': {
     textColor: '#c2185b',
     backgroundColor: '#fce4ec',
     accentColor: '#e91e63',
     label: 'BABY SHOWER DE',
     footer: 'Com amor',
     useGradient: false,
+    fontWeight: 700,
+  },
+  'custom-01': {
+    textColor: '#ffffff',
+    backgroundColor: null,
+    accentColor: '#e8c547',
+    label: 'CONVITE ESPECIAL',
+    footer: '',
+    useGradient: true,
     fontWeight: 700,
   },
 };
