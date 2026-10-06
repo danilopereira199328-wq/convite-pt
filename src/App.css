@@ -1,3 +1,7 @@
+/* ============================================
+   RESET E BASE
+   ============================================ */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -25,6 +29,7 @@ body {
   background: white;
   padding: 20px 40px;
   border-bottom: 1px solid #e5e5e7;
+  flex-shrink: 0;
 }
 
 .editor-header h1 {
@@ -41,30 +46,27 @@ body {
 .editor-main {
   flex: 1;
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 420px 1fr;
   overflow: hidden;
   height: calc(100vh - 100px);
 }
 
 .editor-sidebar {
   background: white;
-  padding: 24px;
   overflow-y: auto;
   border-right: 1px solid #e5e5e7;
   display: flex;
   flex-direction: column;
-  gap: 24px;
   height: 100%;
 }
 
-
- .editor-preview {
+.editor-preview {
   background: #f5f5f7;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   overflow: auto;
-  padding: 10px;
+  padding: 20px;
   height: 100%;
   position: sticky;
   top: 0;
@@ -74,131 +76,99 @@ body {
    FORMULÁRIO
    ============================================ */
 
-.invite-form h2 {
-  font-size: 18px;
-  margin-bottom: 16px;
+.invite-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.form-section {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f2;
+}
+
+.form-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
   color: #1d1d1f;
 }
 
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-
-.form-field label {
+.form-section h3 {
   font-size: 13px;
-  font-weight: 500;
-  color: #1d1d1f;
-}
-
-.form-field input,
-.form-field textarea {
-  padding: 10px 12px;
-  border: 1px solid #d2d2d7;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
-  transition: border-color 0.2s;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-  outline: none;
-  border-color: #0071e3;
-}
-
-.form-field input[type='color'] {
-  height: 40px;
-  padding: 4px;
-  cursor: pointer;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-/* ============================================
-   PREVIEW
-   ============================================ */
-
-.invite-preview-container {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 20px;
-}
-
-.preview-scaler {
-  width: 1080px;
-  height: 1920px;
-  transform: scale(0.35);
-  transform-origin: top center;
-  margin-top: -75px;  /* ← Sobe o convite */
-}
-
-.preview-canvas {
-  width: 1080px;
-  height: 1920px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-/* ============================================
-   BOTÕES DE DOWNLOAD
-   ============================================ */
-
-.download-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.download-buttons button {
-  padding: 14px 20px;
-  border-radius: 10px;
-  font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
-}
-
-.btn-free {
-  background: #f5f5f7;
+  margin-bottom: 10px;
   color: #1d1d1f;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.btn-free:hover {
-  background: #e8e8ed;
+.selector-block {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f2;
 }
 
-.btn-premium {
-  background: linear-gradient(135deg, #e91e63 0%, #ff9800 100%);
-  color: white;
-  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3);
-}
-
-.btn-premium:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+.selector-block h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1d1d1f;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* ============================================
-   SELETOR DE OCASIÃO
+   ABAS (TABS)
+   ============================================ */
+
+.tabs-nav {
+  display: flex;
+  background: white;
+  border-bottom: 2px solid #f0f0f2;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 14px 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  font-family: inherit;
+  position: relative;
+}
+
+.tab-btn:hover {
+  background: #f9f9fb;
+  color: #1d1d1f;
+}
+
+.tab-btn.active {
+  color: #e91e63;
+  border-bottom-color: #e91e63;
+  background: #fff5f8;
+}
+
+.tab-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ============================================
+   GRID DE OCASIÕES
    ============================================ */
 
 .occasion-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  margin-bottom: 24px;
 }
 
 .occasion-btn {
@@ -207,7 +177,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 14px 8px;
+  padding: 12px 6px;
   border: 2px solid #e5e5e7;
   border-radius: 10px;
   background: white;
@@ -229,11 +199,11 @@ body {
 }
 
 .occasion-emoji {
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .occasion-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: #1d1d1f;
   text-align: center;
@@ -245,11 +215,224 @@ body {
 }
 
 /* ============================================
+   ESTILO
+   ============================================ */
+
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.style-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  border: 2px solid #e5e5e7;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.style-btn:hover {
+  border-color: #e91e63;
+  transform: translateY(-2px);
+}
+
+.style-btn.active {
+  border-color: #e91e63;
+  background: #fff0f5;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+}
+
+.style-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.style-btn.active .style-name {
+  color: #e91e63;
+}
+
+/* ============================================
+   PALETA DE CORES
+   ============================================ */
+
+.color-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 14px;
+  background: #f9f9fb;
+  border-radius: 12px;
+  border: 1px solid #e5e5e7;
+}
+
+.color-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.color-field label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #1d1d1f;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.color-field input[type='color'] {
+  width: 100%;
+  height: 42px;
+  border: 2px solid #e5e5e7;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 3px;
+  background: white;
+  transition: all 0.2s;
+}
+
+.color-field input[type='color']:hover {
+  border-color: #e91e63;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+}
+
+.color-field input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-field input[type='color']::-webkit-color-swatch {
+  border: none;
+  border-radius: 6px;
+}
+
+/* ============================================
+   FONTE
+   ============================================ */
+
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.font-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 4px;
+  border: 2px solid #e5e5e7;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #1d1d1f;
+  min-height: 64px;
+}
+
+.font-btn:hover {
+  border-color: #e91e63;
+  transform: translateY(-2px);
+}
+
+.font-btn.active {
+  border-color: #e91e63;
+  background: #fff0f5;
+  color: #e91e63;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+}
+
+.font-preview {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.font-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #666;
+  margin-top: 4px;
+}
+
+.font-btn.active .font-label {
+  color: #e91e63;
+}
+
+/* ============================================
+   GRID DE ELEMENTOS (Bolos + Decorações)
+   ============================================ */
+
+.cake-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.cake-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px;
+  border: 2px solid #e5e5e7;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  min-height: 44px;
+}
+
+.cake-btn:hover {
+  border-color: #e91e63;
+  transform: translateY(-2px);
+}
+
+.cake-btn.active {
+  border-color: #e91e63;
+  background: #fff0f5;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+}
+
+.cake-num {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+
+.cake-btn.active .cake-num {
+  color: #e91e63;
+}
+
+.cake-none {
+  font-size: 9px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.cake-btn.active .cake-none {
+  color: #e91e63;
+}
+
+/* ============================================
    UPLOAD DE FOTO
    ============================================ */
 
 .photo-upload {
-  margin-bottom: 24px;
+  margin-top: 4px;
 }
 
 .photo-input-label {
@@ -318,14 +501,13 @@ body {
 }
 
 /* ============================================
-   SELETOR DE FORMA DA FOTO
+   FORMA DA FOTO
    ============================================ */
 
 .photo-shape-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  margin-bottom: 24px;
 }
 
 .photo-shape-btn {
@@ -391,167 +573,134 @@ body {
 }
 
 /* ============================================
-   SELETOR DE ESTILO (Templates)
+   CAMPOS DE FORMULÁRIO
    ============================================ */
 
-.style-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.style-btn {
+.form-field {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 6px;
-  padding: 14px 8px;
-  border: 2px solid #e5e5e7;
-  border-radius: 10px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
+  margin-bottom: 14px;
 }
 
-.style-btn:hover {
-  border-color: #e91e63;
-  transform: translateY(-2px);
+.form-field:last-child {
+  margin-bottom: 0;
 }
 
-.style-btn.active {
-  border-color: #e91e63;
-  background: #fff0f5;
-  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
-}
-
-.style-name {
+.form-field label {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   color: #1d1d1f;
 }
 
-.style-btn.active .style-name {
-  color: #e91e63;
-}
-
-/* ============================================
-   SELETOR DE FONTE
-   ============================================ */
-
-.font-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.font-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 14px 4px;
-  border: 2px solid #e5e5e7;
-  border-radius: 10px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: #1d1d1f;
-  min-height: 70px;
-}
-
-.font-btn:hover {
-  border-color: #e91e63;
-  transform: translateY(-2px);
-}
-
-.font-btn.active {
-  border-color: #e91e63;
-  background: #fff0f5;
-  color: #e91e63;
-  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
-}
-
-.font-preview {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.font-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: #666;
-  margin-top: 4px;
-}
-
-.font-btn.active .font-label {
-  color: #e91e63;
-}
-
-/* ============================================
-   SELETOR DE BOLO
-   ============================================ */
-
-.cake-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 6px;
-  margin-bottom: 24px;
-}
-
-.cake-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 4px;
-  border: 2px solid #e5e5e7;
+.form-field input[type='text'],
+.form-field input[type='number'],
+.form-field input[type='date'],
+.form-field input[type='time'],
+.form-field textarea {
+  padding: 10px 12px;
+  border: 1px solid #d2d2d7;
   border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s;
   background: white;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: #e91e63;
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ============================================
+   PREVIEW
+   ============================================ */
+
+.invite-preview-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.preview-scaler {
+  width: 1080px;
+  height: 1920px;
+  transform: scale(0.35);
+  transform-origin: top center;
+  margin-top: -30px;
+}
+
+.preview-canvas {
+  width: 1080px;
+  height: 1920px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.preview-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999;
+  font-size: 16px;
+}
+
+/* ============================================
+   BOTÕES DE DOWNLOAD
+   ============================================ */
+
+.download-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  background: white;
+  border-top: 1px solid #f0f0f2;
+  margin-top: auto;
+}
+
+.download-buttons button {
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  border: none;
   transition: all 0.2s;
   font-family: inherit;
-  min-height: 44px;
 }
 
-.cake-btn:hover {
-  border-color: #e91e63;
-  transform: translateY(-2px);
-}
-
-.cake-btn.active {
-  border-color: #e91e63;
-  background: #fff0f5;
-  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
-}
-
-.cake-num {
-  font-size: 16px;
-  font-weight: 700;
+.btn-free {
+  background: #f5f5f7;
   color: #1d1d1f;
 }
 
-.cake-btn.active .cake-num {
-  color: #e91e63;
+.btn-free:hover {
+  background: #e8e8ed;
 }
 
-.cake-none {
-  font-size: 9px;
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
+.btn-donate {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(238, 90, 111, 0.3);
 }
 
-.cake-btn.active .cake-none {
-  color: #e91e63;
+.btn-donate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(238, 90, 111, 0.4);
 }
 
 /* ============================================
@@ -630,7 +779,6 @@ body {
   color: #1d1d1f;
 }
 
-/* Cabeçalho */
 .donate-header {
   text-align: center;
   margin-bottom: 24px;
@@ -668,7 +816,6 @@ body {
   line-height: 1.5;
 }
 
-/* Valor */
 .donate-amount-section {
   text-align: center;
   padding: 20px;
@@ -701,7 +848,6 @@ body {
   font-style: italic;
 }
 
-/* Número MB Way */
 .donate-phone-section {
   margin-bottom: 20px;
 }
@@ -755,7 +901,6 @@ body {
   background: #4caf50;
 }
 
-/* Instruções */
 .donate-instructions {
   padding: 18px;
   background: #f9f9fb;
@@ -810,7 +955,6 @@ body {
   font-weight: 600;
 }
 
-/* Agradecimento */
 .donate-thanks {
   text-align: center;
   padding-top: 16px;
@@ -831,119 +975,57 @@ body {
 }
 
 /* ============================================
-   GRID DE ELEMENTOS (Bolos + Decorações)
+   SCROLLBAR
    ============================================ */
 
-.cake-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 6px;
-  margin-bottom: 20px;
+.editor-sidebar::-webkit-scrollbar,
+.tab-content::-webkit-scrollbar,
+.editor-preview::-webkit-scrollbar {
+  width: 8px;
 }
 
-.cake-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 4px;
-  border: 2px solid #e5e5e7;
-  border-radius: 8px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-  min-height: 44px;
+.editor-sidebar::-webkit-scrollbar-track,
+.tab-content::-webkit-scrollbar-track,
+.editor-preview::-webkit-scrollbar-track {
+  background: #f5f5f7;
 }
 
-.cake-btn:hover {
-  border-color: #e91e63;
-  transform: translateY(-2px);
+.editor-sidebar::-webkit-scrollbar-thumb,
+.tab-content::-webkit-scrollbar-thumb,
+.editor-preview::-webkit-scrollbar-thumb {
+  background: #d2d2d7;
+  border-radius: 4px;
 }
 
-.cake-btn.active {
-  border-color: #e91e63;
-  background: #fff0f5;
-  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
-}
-
-.cake-num {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1d1d1f;
-}
-
-.cake-btn.active .cake-num {
-  color: #e91e63;
-}
-
-.cake-none {
-  font-size: 9px;
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
-}
-
-.cake-btn.active .cake-none {
-  color: #e91e63;
+.editor-sidebar::-webkit-scrollbar-thumb:hover,
+.tab-content::-webkit-scrollbar-thumb:hover,
+.editor-preview::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a6;
 }
 
 /* ============================================
-   PALETA DE CORES
+   RESPONSIVO
    ============================================ */
 
-.color-palette-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-bottom: 24px;
-  padding: 16px;
-  background: #f9f9fb;
-  border-radius: 12px;
-  border: 1px solid #e5e5e7;
+@media (max-width: 1024px) {
+  .editor-main {
+    grid-template-columns: 380px 1fr;
+  }
 }
 
-.color-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+@media (max-width: 768px) {
+  .editor-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
 
-.color-field label {
-  font-size: 11px;
-  font-weight: 600;
-  color: #1d1d1f;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+  .editor-sidebar {
+    max-height: 50vh;
+    border-right: none;
+    border-bottom: 1px solid #e5e5e7;
+  }
 
-.color-field input[type='color'] {
-  width: 100%;
-  height: 44px;
-  border: 2px solid #e5e5e7;
-  border-radius: 10px;
-  cursor: pointer;
-  padding: 3px;
-  background: white;
-  transition: all 0.2s;
-}
-
-.color-field input[type='color']:hover {
-  border-color: #e91e63;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
-}
-
-.color-field input[type='color']::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-.color-field input[type='color']::-webkit-color-swatch {
-  border: none;
-  border-radius: 6px;
-}
-
-.color-field input[type='color']::-moz-color-swatch {
-  border: none;
-  border-radius: 6px;
+  .occasion-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
